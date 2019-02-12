@@ -2,9 +2,9 @@
 #include "HiTecSC.h"
 #include "Utils.h"
 
-HiTecSC::HiTecSC(uint8_t i2cAddr) : HT_Controller(i2cAddr)
+HiTecSC::HiTecSC(DaisyChainPosition pos) : HT_Controller(pos)
 {
-    this->i2cAddr = i2cAddr;
+    this->i2cAddr = 0x05;
 }
 
 void HiTecSC::setServoPosition(uint8_t port, uint8_t pos)

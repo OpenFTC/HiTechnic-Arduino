@@ -8,10 +8,10 @@
 #define PRESCALAR 4
 #define TWI_FREQ 37390L
 
-HiTecMC* mc1 = new HiTecMC(0x02);
+HiTecMC* mc1 = new HiTecMC(HT_Controller::DaisyChainPosition::FIRST);
 HT_Motor* someMotor = new HT_Motor(mc1, 0);
 
-HiTecSC* sc1 = new HiTecSC(0x01);
+HiTecSC* sc1 = new HiTecSC(HT_Controller::DaisyChainPosition::SECOND);
 HT_Servo* someServo = new HT_Servo(sc1, 2);
 
 void setup()

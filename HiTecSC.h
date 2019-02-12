@@ -18,7 +18,7 @@
 class HiTecSC : public HT_Controller
 {
     public:
-        HiTecSC(uint8_t i2cAddr);
+        HiTecSC(DaisyChainPosition pos);
         void setServoPosition(uint8_t port, uint8_t pos);
         void setPwmEnabled(boolean en);
 

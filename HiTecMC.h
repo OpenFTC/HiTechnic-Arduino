@@ -18,7 +18,7 @@
 class HiTecMC : public HT_Controller
 {
     public:
-        HiTecMC(uint8_t i2cAddr);
+        HiTecMC(DaisyChainPosition pos);
         enum class RunMode {RUN_WITHOUT_ENCODER, RUN_USING_ENCODER, RUN_TO_POSITION, STOP_AND_RESET_ENCODER};
         void setMotorPowers(int8_t power1, int8_t power2);
         void setMotorPower(boolean port, int8_t power);

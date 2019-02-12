@@ -3,9 +3,9 @@
 #include "Wire.h"
 #include "Utils.h"
 
-HiTecMC::HiTecMC(uint8_t i2cAddr) : HT_Controller(i2cAddr)
+HiTecMC::HiTecMC(DaisyChainPosition pos) : HT_Controller(pos)
 {
-    this->i2cAddr = i2cAddr;
+    this->i2cAddr = 0x05;
 }
 
 /*

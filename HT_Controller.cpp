@@ -2,9 +2,9 @@
 #include "HT_Controller.h"
 #include "Wire.h"
 
-HT_Controller::HT_Controller(uint8_t addr)
+HT_Controller::HT_Controller(DaisyChainPosition pos)
 {
-    this->i2cAddr = addr;
+    this->i2cAddr = 0x05;
 }
 
 void HT_Controller::write8(uint8_t reg, uint8_t val)

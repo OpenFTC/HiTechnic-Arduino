@@ -11,16 +11,8 @@
 class HT_Controller
 {
     public:
-        HT_Controller(uint8_t i2cAddr);
-        struct arrWrap
-        { 
-            arrWrap(boolean b)
-            {
-                
-            }
-            int arr[100];
-            int len;
-        }; 
+        enum class DaisyChainPosition {FIRST, SECOND, THIRD, FOURTH, NONE};
+        HT_Controller(DaisyChainPosition pos);
         void getManufacturer(uint8_t* out);
         void getSensorType(uint8_t* out);
         void write8(uint8_t reg, uint8_t val);
