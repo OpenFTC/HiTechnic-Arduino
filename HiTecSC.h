@@ -19,7 +19,8 @@ class HiTecSC : public HT_Controller
 {
     public:
         HiTecSC(DaisyChainPosition pos);
-        void setServoPosition(uint8_t port, uint8_t pos);
+        enum class ServoPort {SERVO_PORT_1 = 1, SERVO_PORT_2, SERVO_PORT_3, SERVO_PORT_4, SERVO_PORT_5, SERVO_PORT_6};
+        void setServoPosition(ServoPort port, uint8_t pos);
         void setPwmEnabled(boolean en);
 
     private:

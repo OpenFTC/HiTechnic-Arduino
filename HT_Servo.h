@@ -7,12 +7,12 @@
 class HT_Servo
 {
     public:
-        HT_Servo(HiTecSC* controller, uint8_t port);
+        HT_Servo(HiTecSC* controller, HiTecSC::ServoPort port);
         void setPosition(uint8_t pos);
 
     private:
         HiTecSC* controller;
-        uint8_t port;
+        HiTecSC::ServoPort port;
 };
 
 #endif

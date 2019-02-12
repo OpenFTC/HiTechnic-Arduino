@@ -7,15 +7,15 @@ HiTecSC::HiTecSC(DaisyChainPosition pos) : HT_Controller(pos)
     this->i2cAddr = 0x05;
 }
 
-void HiTecSC::setServoPosition(uint8_t port, uint8_t pos)
+void HiTecSC::setServoPosition(ServoPort port, uint8_t pos)
 {
-    if(port < 1 || port > 6)
+    if((int)port < 1 || (int)port > 6)
     {
         return; //invalid
     }
 
     //Rather than a switch statement, just offset from the base mem addr
-    Utils::writeToI2cRegister(i2cAddr, REGISTER_SERVO_POS_BASE + port, pos);
+    Utils::writeToI2cRegister(i2cAddr, REGISTER_SERVO_POS_BASE + (int)port, pos);
 }
 
 void HiTecSC::setPwmEnabled(boolean en)

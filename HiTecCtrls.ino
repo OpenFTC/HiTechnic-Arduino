@@ -12,7 +12,7 @@ HiTecMC* mc1 = new HiTecMC(HT_Controller::DaisyChainPosition::FIRST);
 HT_Motor* someMotor = new HT_Motor(mc1, 0);
 
 HiTecSC* sc1 = new HiTecSC(HT_Controller::DaisyChainPosition::SECOND);
-HT_Servo* someServo = new HT_Servo(sc1, 2);
+HT_Servo* someServo = new HT_Servo(sc1, HiTecSC::ServoPort::SERVO_PORT_1);
 
 void setup()
 {
