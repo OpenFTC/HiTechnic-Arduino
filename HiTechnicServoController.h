@@ -1,8 +1,8 @@
 #include "Arduino.h"
-#include "HT_Controller.h"
+#include "HiTechnicController.h"
 
-#ifndef HiTecSC_h
-#define HiTecSC_h
+#ifndef HiTechnicServoController_h
+#define HiTechnicServoController_h
 
 #define REGISTER_SERVO_POS_BASE 0x41
 #define REGISTER_SERVO_1_POS 0x42
@@ -15,10 +15,10 @@
 #define PWM_DISABLED 255
 #define PWM_ENABLED 0
 
-class HiTecSC : public HT_Controller
+class HiTechnicServoController : public HiTechnicController
 {
     public:
-        HiTecSC(DaisyChainPosition pos);
+        HiTechnicServoController(DaisyChainPosition pos);
         enum class ServoPort {SERVO_PORT_1 = 1, SERVO_PORT_2, SERVO_PORT_3, SERVO_PORT_4, SERVO_PORT_5, SERVO_PORT_6};
         void setServoPosition(ServoPort port, uint8_t pos);
         void setPwmEnabled(boolean en);

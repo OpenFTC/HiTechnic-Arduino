@@ -1,5 +1,5 @@
-#include "HT_Motor.h"
-#include "HiTecMC.h"
+#include "HiTechnicMotor.h"
+#include "HiTechnicDcMotorController.h"
 #include "Arduino.h"
 
 /*
@@ -8,13 +8,13 @@
  * -------------------------------------------------------------------------------
  */
 
-HT_Motor::HT_Motor(HiTecMC* controller, boolean port)
+HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, boolean port)
 {
     this->controller = controller;
     this->port = port;
 }
 
-void HT_Motor::setPower(int8_t power)
+void HiTechnicMotor::setPower(int8_t power)
 {
     controller->setMotorPower(port, power);
 }
@@ -25,7 +25,7 @@ void HT_Motor::setPower(int8_t power)
  * -------------------------------------------------------------------------------
  */
 
-void HT_Motor::setRunMode(HiTecMC::RunMode mode)
+void HiTechnicMotor::setRunMode(HiTechnicDcMotorController::RunMode mode)
 {
     controller->setMotorRunMode(port, mode);
 }
@@ -36,22 +36,22 @@ void HT_Motor::setRunMode(HiTecMC::RunMode mode)
  * -------------------------------------------------------------------------------
  */
 
-void HT_Motor::setPidCoeffs(uint8_t kP, uint8_t kI, uint8_t kD)
+void HiTechnicMotor::setPidCoeffs(uint8_t kP, uint8_t kI, uint8_t kD)
 {
     controller->setMotorPIDCoeffs(port, kP, kI, kD);
 }
 
-void HT_Motor::setPCoeff(uint8_t kP)
+void HiTechnicMotor::setPCoeff(uint8_t kP)
 {
     controller->setMotorPCoeff(port, kP);
 }
 
-void HT_Motor::setICoeff(uint8_t kI)
+void HiTechnicMotor::setICoeff(uint8_t kI)
 {
     controller->setMotorPCoeff(port, kI);
 }
 
-void HT_Motor::setDCoeff(uint8_t kD)
+void HiTechnicMotor::setDCoeff(uint8_t kD)
 {
     controller->setMotorPCoeff(port, kD);
 }

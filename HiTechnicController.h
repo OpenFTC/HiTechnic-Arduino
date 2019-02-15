@@ -8,11 +8,11 @@
 #define REGISTER_SENSOR_TYPE 0x10
 #define NUM_SENSOR_TYPE_BYTES 8
 
-class HT_Controller
+class HiTechnicController
 {
     public:
         enum class DaisyChainPosition {FIRST, SECOND, THIRD, FOURTH, NONE};
-        HT_Controller(DaisyChainPosition pos);
+        HiTechnicController(DaisyChainPosition pos);
         void getManufacturer(uint8_t* out);
         void getSensorType(uint8_t* out);
         void write8(uint8_t reg, uint8_t val);

@@ -1,5 +1,5 @@
 #include "Arduino.h"
-#include "HT_Controller.h"
+#include "HiTechnicController.h"
 
 #ifndef HiTecMC_h
 #define HiTecMC_h
@@ -15,10 +15,10 @@
 #define REGISTER_MOTOR_2_I_COEFF 0x5C
 #define REGISTER_MOTOR_2_D_COEFF 0x5D
 
-class HiTecMC : public HT_Controller
+class HiTechnicDcMotorController : public HiTechnicController
 {
     public:
-        HiTecMC(DaisyChainPosition pos);
+        HiTechnicDcMotorController(DaisyChainPosition pos);
         enum class RunMode {RUN_WITHOUT_ENCODER, RUN_USING_ENCODER, RUN_TO_POSITION, STOP_AND_RESET_ENCODER};
         void setMotorPowers(int8_t power1, int8_t power2);
         void setMotorPower(boolean port, int8_t power);

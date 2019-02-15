@@ -1,9 +1,9 @@
 #include "Arduino.h"
-#include "HiTecMC.h"
+#include "HiTechnicDcMotorController.h"
 #include "Wire.h"
 #include "Utils.h"
 
-HiTecMC::HiTecMC(DaisyChainPosition pos) : HT_Controller(pos)
+HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) : HiTechnicController(pos)
 {
     this->i2cAddr = 0x05;
 }
@@ -13,7 +13,7 @@ HiTecMC::HiTecMC(DaisyChainPosition pos) : HT_Controller(pos)
  * saves bus time over calling setMotorPower() twice,
  * once for each motor
  */
-void HiTecMC::setMotorPowers(int8_t power1, int8_t power2)
+void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
 {
     int8_t data[2] = {power1, power2};
     Utils::writeToI2cRegisters(i2cAddr, REGISTER_MOTOR_1_POWER, data, 2);
@@ -28,7 +28,7 @@ void HiTecMC::setMotorPowers(int8_t power1, int8_t power2)
 /*
  * Set the power for an indiviudal motor
  */
-void HiTecMC::setMotorPower(boolean port, int8_t power)
+void HiTechnicDcMotorController::setMotorPower(boolean port, int8_t power)
 {
     if(!port)
     {
@@ -54,7 +54,7 @@ void HiTecMC::setMotorPower(boolean port, int8_t power)
     Wire.endTransmission(); //Actually send it out over the bus*/
 }
 
-void HiTecMC::setMotorPIDCoeffs(boolean port, uint8_t kP, uint8_t kI, uint8_t kD)
+void HiTechnicDcMotorController::setMotorPIDCoeffs(boolean port, uint8_t kP, uint8_t kI, uint8_t kD)
 {
     if(!port) //Port 1
     {
@@ -68,7 +68,7 @@ void HiTecMC::setMotorPIDCoeffs(boolean port, uint8_t kP, uint8_t kI, uint8_t kD
     }
 }
 
-void HiTecMC::setMotorPCoeff(boolean port, uint8_t kP)
+void HiTechnicDcMotorController::setMotorPCoeff(boolean port, uint8_t kP)
 {
     if(!port) //Port 1
     {
@@ -80,7 +80,7 @@ void HiTecMC::setMotorPCoeff(boolean port, uint8_t kP)
     }
 }
 
-void HiTecMC::setMotorICoeff(boolean port, uint8_t kI)
+void HiTechnicDcMotorController::setMotorICoeff(boolean port, uint8_t kI)
 {
     if(!port) //Port 1
     {
@@ -92,7 +92,7 @@ void HiTecMC::setMotorICoeff(boolean port, uint8_t kI)
     }
 }
 
-void HiTecMC::setMotorDCoeff(boolean port, uint8_t kD)
+void HiTechnicDcMotorController::setMotorDCoeff(boolean port, uint8_t kD)
 {
     if(!port) //Port 1
     {
@@ -104,12 +104,12 @@ void HiTecMC::setMotorDCoeff(boolean port, uint8_t kD)
     }
 }
 
-void HiTecMC::setMotorRunMode(boolean port, RunMode mode)
+void HiTechnicDcMotorController::setMotorRunMode(boolean port, RunMode mode)
 {
     
 }
 
-/*uint16_t HiTecMC::getBatteryVoltage()
+/*uint16_t HiTechnicDcMotorController::getBatteryVoltage()
 {
     Wire.beginTransmission(i2cAddr); //We're talking to the guy at i2cAddr
     Wire.write(REGISTER_BATTERY_VOLTAGE_HIGH_BYTE); //We're going to read from this memory address

@@ -1,13 +1,13 @@
 #include "Arduino.h"
-#include "HT_Controller.h"
+#include "HiTechnicController.h"
 #include "Wire.h"
 
-HT_Controller::HT_Controller(DaisyChainPosition pos)
+HiTechnicController::HiTechnicController(DaisyChainPosition pos)
 {
     this->i2cAddr = 0x05;
 }
 
-void HT_Controller::write8(uint8_t reg, uint8_t val)
+void HiTechnicController::write8(uint8_t reg, uint8_t val)
 {
     Wire.beginTransmission(i2cAddr);
     Wire.write(reg);
@@ -15,7 +15,7 @@ void HT_Controller::write8(uint8_t reg, uint8_t val)
     Wire.endTransmission();
 }
 
-void HT_Controller::writeMultiple(uint8_t reg, uint8_t data[], uint8_t len)
+void HiTechnicController::writeMultiple(uint8_t reg, uint8_t data[], uint8_t len)
 {
     Wire.beginTransmission(i2cAddr);
     Wire.write(reg);
@@ -23,7 +23,7 @@ void HT_Controller::writeMultiple(uint8_t reg, uint8_t data[], uint8_t len)
     Wire.endTransmission();
 }
 
-uint8_t HT_Controller::read8(uint8_t reg)
+uint8_t HiTechnicController::read8(uint8_t reg)
 {
     Wire.beginTransmission(i2cAddr);
     Wire.write(reg);
@@ -33,7 +33,7 @@ uint8_t HT_Controller::read8(uint8_t reg)
     return Wire.read();
 }
 
-void HT_Controller::readMultiple(uint8_t reg, uint8_t num, uint8_t* out)
+void HiTechnicController::readMultiple(uint8_t reg, uint8_t num, uint8_t* out)
 {
     Wire.beginTransmission(i2cAddr);
     Wire.write(reg);
@@ -47,13 +47,13 @@ void HT_Controller::readMultiple(uint8_t reg, uint8_t num, uint8_t* out)
     }
 }
 
-void HT_Controller::getManufacturer(uint8_t* out)
+void HiTechnicController::getManufacturer(uint8_t* out)
 {
     readMultiple(REGISTER_MFR, NUM_MFR_BYTES, out); //Read the bytes from the controller
     out[NUM_MFR_BYTES] = 0; //Add that null char. NB: we don't need to '+1' the index because arrays start at 0, not 1
 }
 
-void HT_Controller::getSensorType(uint8_t* out)
+void HiTechnicController::getSensorType(uint8_t* out)
 {
     readMultiple(REGISTER_SENSOR_TYPE, NUM_SENSOR_TYPE_BYTES, out); //Read the bytes from the controller
     out[NUM_SENSOR_TYPE_BYTES] = 0; //Add that null char. NB: we don't need to '+1' the index because arrays start at 0, not 1

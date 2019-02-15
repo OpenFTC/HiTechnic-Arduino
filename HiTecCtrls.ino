@@ -1,18 +1,18 @@
-#include "HiTecMC.h"
-#include "HT_Motor.h"
-#include "HiTecSC.h"
-#include "HT_Servo.h"
+#include "HiTechnicDcMotorController.h"
+#include "HiTechnicMotor.h"
+#include "HiTechnicServoController.h"
+#include "HiTechnicServo.h"
 #include "Wire.h"
 #include "Utils.h"
 
 #define PRESCALAR 4
 #define TWI_FREQ 37390L
 
-HiTecMC* mc1 = new HiTecMC(HT_Controller::DaisyChainPosition::FIRST);
-HT_Motor* someMotor = new HT_Motor(mc1, 0);
+HiTechnicDcMotorController* mc1 = new HiTechnicDcMotorController(HiTechnicController::DaisyChainPosition::FIRST);
+HiTechnicMotor* someMotor = new HiTechnicMotor(mc1, 0);
 
-HiTecSC* sc1 = new HiTecSC(HT_Controller::DaisyChainPosition::SECOND);
-HT_Servo* someServo = new HT_Servo(sc1, HiTecSC::ServoPort::SERVO_PORT_1);
+HiTechnicServoController* sc1 = new HiTechnicServoController(HiTechnicController::DaisyChainPosition::SECOND);
+HiTechnicServo* someServo = new HiTechnicServo(sc1, HiTechnicServoController::ServoPort::SERVO_PORT_1);
 
 void setup()
 {
@@ -20,7 +20,7 @@ void setup()
     while(!Serial);
     Wire.begin();
     sc1->setPwmEnabled(true);
-    mc1->setMotorRunMode(true, HiTecMC::RunMode::STOP_AND_RESET_ENCODER);
+    mc1->setMotorRunMode(true, HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
 }
 
 void loop()
