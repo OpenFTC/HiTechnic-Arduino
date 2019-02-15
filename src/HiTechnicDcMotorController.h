@@ -1,8 +1,8 @@
 #include "Arduino.h"
 #include "HiTechnicController.h"
 
-#ifndef HiTecMC_h
-#define HiTecMC_h
+#ifndef HiTechnicDcMotorController_h
+#define HiTechnicDcMotorController_h
 
 #define REGISTER_MOTOR_1_POWER 0x45
 #define REGISTER_MOTOR_2_POWER 0x46

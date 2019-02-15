@@ -1,7 +1,7 @@
 #include "Arduino.h"
 
-#ifndef HT_Controller_h
-#define HT_Controller_h
+#ifndef HiTechnicController_h
+#define HiTechnicController_h
 
 #define NUM_MFR_BYTES 8
 #define REGISTER_MFR 0x08
