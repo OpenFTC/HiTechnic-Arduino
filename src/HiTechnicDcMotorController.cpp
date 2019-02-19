@@ -21,12 +21,6 @@ void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
 {
     int8_t data[2] = {power1, power2};
     writeMultiple(REGISTER_MOTOR_1_POWER, data, 2);
-   
-    /*Wire.beginTransmission(i2cAddr); //We're talking to the guy at i2cAddr
-    Wire.write(REGISTER_MOTOR_1_POWER); //We're going to start writing into the memory at the motor 1 power register
-    Wire.write(power1); //Write out the first motor power
-    Wire.write(power2); //Because the motor power 2 register is right after the motor power 1 register, we can just immediatly write the motor power 2 byte
-    Wire.endTransmission(); //Actually send it out over the bus*/
 }
 
 /*
@@ -42,20 +36,6 @@ void HiTechnicDcMotorController::setMotorPower(boolean port, int8_t power)
     {
         write8(REGISTER_MOTOR_2_POWER, power);
     }
-    
-    /*Wire.beginTransmission(i2cAddr); //We're talking to the guy at i2cAddr
-
-    if(!port) //Port 1
-    {
-        Wire.write(REGISTER_MOTOR_1_POWER); //We're going to write into the memory at the motor 1 power register
-    }
-    else      //Port 2
-    {
-        Wire.write(REGISTER_MOTOR_2_POWER); //We're going to write into the memory at the motor 2 power register
-    }
-    
-    Wire.write(power); //Write out the motor power
-    Wire.endTransmission(); //Actually send it out over the bus*/
 }
 
 void HiTechnicDcMotorController::setMotorPIDCoeffs(boolean port, uint8_t kP, uint8_t kI, uint8_t kD)
