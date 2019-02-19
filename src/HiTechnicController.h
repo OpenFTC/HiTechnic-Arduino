@@ -11,7 +11,7 @@
 class HiTechnicController
 {
     public:
-        enum class DaisyChainPosition {FIRST, SECOND, THIRD, FOURTH, NONE};
+        enum DaisyChainPosition {DAISY_CHAIN_POSITION_FIRST = 0x01, DAISY_CHAIN_POSITION_SECOND, DAISY_CHAIN_POSITION_THIRD, DAISY_CHAIN_POSITION_FOURTH, DAISY_CHAIN_POSITION_NONE};
         HiTechnicController(DaisyChainPosition pos);
         void getManufacturer(uint8_t* out);
         void getSensorType(uint8_t* out);
@@ -21,7 +21,7 @@ class HiTechnicController
         void readMultiple(uint8_t reg, uint8_t num, uint8_t* out);
 
     
-    protected:
+    private:
         uint8_t i2cAddr;
 };
 

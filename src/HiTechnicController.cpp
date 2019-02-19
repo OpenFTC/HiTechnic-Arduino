@@ -4,7 +4,7 @@
 
 HiTechnicController::HiTechnicController(DaisyChainPosition pos)
 {
-    this->i2cAddr = 0x05;
+    this->i2cAddr = (int)pos;
 }
 
 void HiTechnicController::write8(uint8_t reg, uint8_t val)

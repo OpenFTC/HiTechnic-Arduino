@@ -19,12 +19,9 @@ class HiTechnicServoController : public HiTechnicController
 {
     public:
         HiTechnicServoController(DaisyChainPosition pos);
-        enum class ServoPort {SERVO_PORT_1 = 1, SERVO_PORT_2, SERVO_PORT_3, SERVO_PORT_4, SERVO_PORT_5, SERVO_PORT_6};
+        enum ServoPort {SERVO_PORT_1 = 1, SERVO_PORT_2, SERVO_PORT_3, SERVO_PORT_4, SERVO_PORT_5, SERVO_PORT_6};
         void setServoPosition(ServoPort port, uint8_t pos);
         void setPwmEnabled(boolean en);
-
-    private:
-       // uint8_t i2cAddr = 0;
 };
 
 #endif

@@ -1,11 +1,10 @@
 #include "Arduino.h"
 #include "HiTechnicDcMotorController.h"
 #include "Wire.h"
-#include "Utils.h"
 
 HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) : HiTechnicController(pos)
 {
-    this->i2cAddr = 0x05;
+
 }
 
 /*
@@ -16,7 +15,7 @@ HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) :
 void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
 {
     int8_t data[2] = {power1, power2};
-    Utils::writeToI2cRegisters(i2cAddr, REGISTER_MOTOR_1_POWER, data, 2);
+    writeMultiple(REGISTER_MOTOR_1_POWER, data, 2);
    
     /*Wire.beginTransmission(i2cAddr); //We're talking to the guy at i2cAddr
     Wire.write(REGISTER_MOTOR_1_POWER); //We're going to start writing into the memory at the motor 1 power register
@@ -36,7 +35,7 @@ void HiTechnicDcMotorController::setMotorPower(boolean port, int8_t power)
     }
     else
     {
-        Utils::writeToI2cRegister(i2cAddr, REGISTER_MOTOR_2_POWER, power);
+        write8(REGISTER_MOTOR_2_POWER, power);
     }
     
     /*Wire.beginTransmission(i2cAddr); //We're talking to the guy at i2cAddr

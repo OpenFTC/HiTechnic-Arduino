@@ -3,16 +3,15 @@
 #include "HiTechnicServoController.h"
 #include "HiTechnicServo.h"
 #include "Wire.h"
-#include "Utils.h"
 
 #define PRESCALAR 4
 #define TWI_FREQ 37390L
 
-HiTechnicDcMotorController* mc1 = new HiTechnicDcMotorController(HiTechnicController::DaisyChainPosition::FIRST);
+HiTechnicDcMotorController* mc1 = new HiTechnicDcMotorController(HiTechnicController::DAISY_CHAIN_POSITION_FIRST);
 HiTechnicMotor* someMotor = new HiTechnicMotor(mc1, 0);
 
-HiTechnicServoController* sc1 = new HiTechnicServoController(HiTechnicController::DaisyChainPosition::SECOND);
-HiTechnicServo* someServo = new HiTechnicServo(sc1, HiTechnicServoController::ServoPort::SERVO_PORT_1);
+HiTechnicServoController* sc1 = new HiTechnicServoController(HiTechnicController::DAISY_CHAIN_POSITION_SECOND);
+HiTechnicServo* someServo = new HiTechnicServo(sc1, HiTechnicServoController::SERVO_PORT_1);
 
 void setup()
 {
