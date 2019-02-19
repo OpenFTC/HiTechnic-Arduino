@@ -1,9 +1,14 @@
 #include "Arduino.h"
 #include "HiTechnicServoController.h"
 
+/*
+ * -------------------------------------------------------------------------------
+ * Constructor
+ * -------------------------------------------------------------------------------
+ */
 HiTechnicServoController::HiTechnicServoController(DaisyChainPosition pos) : HiTechnicController(pos)
 {
-
+    /* Nothing to see here, move along :P */
 }
 
 void HiTechnicServoController::setServoPosition(ServoPort port, uint8_t pos)

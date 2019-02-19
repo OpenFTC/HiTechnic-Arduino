@@ -2,9 +2,14 @@
 #include "HiTechnicDcMotorController.h"
 #include "Wire.h"
 
+/*
+ * -------------------------------------------------------------------------------
+ * Constructor
+ * -------------------------------------------------------------------------------
+ */
 HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) : HiTechnicController(pos)
 {
-
+    /* Nothing to see here, move along :P */
 }
 
 /*

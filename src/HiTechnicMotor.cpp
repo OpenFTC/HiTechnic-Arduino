@@ -7,12 +7,17 @@
  * Constructor
  * -------------------------------------------------------------------------------
  */
-
 HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, boolean port)
 {
     this->controller = controller;
     this->port = port;
 }
+
+/*
+ * -------------------------------------------------------------------------------
+ * Power
+ * -------------------------------------------------------------------------------
+ */
 
 void HiTechnicMotor::setPower(int8_t power)
 {
