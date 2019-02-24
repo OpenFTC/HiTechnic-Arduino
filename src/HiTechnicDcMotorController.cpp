@@ -93,6 +93,18 @@ void HiTechnicDcMotorController::setMotorRunMode(boolean port, RunMode mode)
     
 }
 
+int32_t HiTechnicDcMotorController::getMotorCurrentPosition(boolean port)
+{
+    if(!port) //Port 1
+    {
+        return readSigned32(REGISTER_MOTOR_1_ENC_HIGH_BYTE);
+    }
+    else //Port 2
+    {
+        return readSigned32(REGISTER_MOTOR_2_ENC_HIGH_BYTE);
+    }
+}
+
 uint16_t HiTechnicDcMotorController::getBatteryVoltage()
 {
     uint16_t voltage = 0;

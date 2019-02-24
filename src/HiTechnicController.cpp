@@ -82,3 +82,40 @@ void HiTechnicController::readMultiple(uint8_t reg, uint8_t num, uint8_t* out)
     }
 }
 
+int32_t HiTechnicController::readSigned32(uint8_t reg)
+{
+    uint8_t bytes[4];
+    readMultiple(reg, 4, bytes);
+    return byteArrayToSigned32bitInt(bytes);
+}
+
+uint32_t HiTechnicController::readUnsigned32(uint8_t reg)
+{
+    uint8_t bytes[4];
+    readMultiple(reg, 4, bytes);
+    return byteArrayToUnsigned32bitInt(bytes);
+}
+
+int32_t HiTechnicController::byteArrayToSigned32bitInt(uint8_t* bytes)
+{
+    int32_t i = 0;
+    
+    i |= bytes[0] << 24;
+    i |= bytes[1] << 16;
+    i |= bytes[2] << 8;
+    i |= bytes[3];
+
+    return i;
+}
+
+uint32_t HiTechnicController::byteArrayToUnsigned32bitInt(uint8_t* bytes)
+{
+    uint32_t i = 0;
+    
+    i |= bytes[0] << 24;
+    i |= bytes[1] << 16;
+    i |= bytes[2] << 8;
+    i |= bytes[3];
+
+    return i;
+}

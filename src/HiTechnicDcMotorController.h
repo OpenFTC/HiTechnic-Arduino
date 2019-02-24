@@ -6,7 +6,12 @@
 
 #define REGISTER_MOTOR_1_POWER 0x45
 #define REGISTER_MOTOR_2_POWER 0x46
+
+#define REGISTER_MOTOR_1_ENC_HIGH_BYTE 0x4C
+#define REGISTER_MOTOR_2_ENC_HIGH_BYTE 0x50
+
 #define REGISTER_BATTERY_VOLTAGE_HIGH_BYTE 0x54
+
 #define REGISTER_MOTOR_1_P_COEFF 0x57
 #define REGISTER_MOTOR_1_I_COEFF 0x58
 #define REGISTER_MOTOR_1_D_COEFF 0x59
@@ -27,6 +32,7 @@ class HiTechnicDcMotorController : public HiTechnicController
         void setMotorICoeff(boolean port, uint8_t kI);
         void setMotorDCoeff(boolean port, uint8_t kD);
         void setMotorRunMode(boolean port, RunMode mode);
+        int32_t getMotorCurrentPosition(boolean port);
         uint16_t getBatteryVoltage();
         float getBatteryVoltageFloat();
 };

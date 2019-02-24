@@ -14,6 +14,7 @@ class HiTechnicMotor
         void setICoeff(uint8_t kI);
         void setDCoeff(uint8_t kD);
         void setRunMode(HiTechnicDcMotorController::RunMode mode);
+        int32_t getCurrentPosition();
 
     private:
         boolean port;

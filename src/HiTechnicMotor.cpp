@@ -24,6 +24,11 @@ void HiTechnicMotor::setPower(int8_t power)
     controller->setMotorPower(port, power);
 }
 
+int32_t HiTechnicMotor::getCurrentPosition()
+{
+    return controller->getMotorCurrentPosition(port);
+}
+
 /*
  * -------------------------------------------------------------------------------
  * Mode
@@ -60,4 +65,3 @@ void HiTechnicMotor::setDCoeff(uint8_t kD)
 {
     controller->setMotorPCoeff(port, kD);
 }
-

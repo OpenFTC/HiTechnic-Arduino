@@ -21,6 +21,10 @@ class HiTechnicController
         void writeMultiple(uint8_t reg, uint8_t data[], uint8_t len);
         uint8_t read8(uint8_t reg);
         void readMultiple(uint8_t reg, uint8_t num, uint8_t* out);
+        int32_t readSigned32(uint8_t reg);
+        uint32_t readUnsigned32(uint8_t reg);
+        int32_t byteArrayToSigned32bitInt(uint8_t* bytes);
+        uint32_t byteArrayToUnsigned32bitInt(uint8_t* bytes);
     
     private:
         uint8_t i2cAddr;

@@ -9,6 +9,7 @@
 
 HiTechnicDcMotorController mc1(HiTechnicController::DAISY_CHAIN_POSITION_SECOND);
 HiTechnicMotor someMotor(&mc1, 0);
+HiTechnicMotor someMotor2(&mc1, 1);
 
 HiTechnicServoController sc1(HiTechnicController::DAISY_CHAIN_POSITION_FIRST);
 HiTechnicServo someServo(&sc1, HiTechnicServoController::SERVO_PORT_1);
@@ -26,14 +27,21 @@ void setup()
 
 void loop()
 {
-    Serial.print("Voltage: ");
-    Serial.println(mc1.getBatteryVoltageFloat());
+    //Serial.print("Voltage: ");
+    //Serial.println(mc1.getBatteryVoltageFloat());
+
+    Serial.print("Enc1: ");
+    Serial.println(someMotor.getCurrentPosition());
+    Serial.print("Enc2: ");
+    Serial.println(someMotor2.getCurrentPosition());
+
+    delay(50);
     
-    someMotor.setPower(0);
+    /*someMotor.setPower(0);
     someServo.setPosition(127);
     delay(500);
     someServo.setPosition(130);
     someMotor.setPower(100);
-    delay(500);
+    delay(500);*/
 
 }
