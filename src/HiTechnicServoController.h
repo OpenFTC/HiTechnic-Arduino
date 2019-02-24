@@ -21,6 +21,10 @@ class HiTechnicServoController : public HiTechnicController
         enum ServoPort {SERVO_PORT_1 = 0, SERVO_PORT_2, SERVO_PORT_3, SERVO_PORT_4, SERVO_PORT_5, SERVO_PORT_6};
         void setServoPosition(ServoPort port, uint8_t pos);
         void setPwmEnabled(boolean en);
+        uint8_t getServoPosition(ServoPort port);
+
+    private:
+        uint8_t commandedPositions[6] = {0,0,0,0,0,0};
 };
 
 #endif

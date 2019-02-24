@@ -9,6 +9,7 @@ class HiTechnicServo
     public:
         HiTechnicServo(HiTechnicServoController* controller, HiTechnicServoController::ServoPort port);
         void setPosition(uint8_t pos);
+        uint8_t getPosition();
 
     private:
         HiTechnicServoController* controller;

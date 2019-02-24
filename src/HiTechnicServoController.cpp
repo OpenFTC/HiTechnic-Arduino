@@ -15,6 +15,13 @@ void HiTechnicServoController::setServoPosition(ServoPort port, uint8_t pos)
 {
     //Rather than a switch statement, just offset from the base mem addr
     write8(REGISTER_SERVO_1_POS + (int)port, pos);
+
+    commandedPositions[port] = pos;
+}
+
+uint8_t HiTechnicServoController::getServoPosition(ServoPort port)
+{
+    return commandedPositions[port];
 }
 
 void HiTechnicServoController::setPwmEnabled(boolean en)

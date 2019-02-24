@@ -24,3 +24,7 @@ void HiTechnicServo::setPosition(uint8_t pos)
     controller->setServoPosition(port, pos);
 }
 
+uint8_t HiTechnicServo::getPosition()
+{
+    controller->getServoPosition(port);
+}
