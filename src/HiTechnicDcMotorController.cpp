@@ -93,10 +93,21 @@ void HiTechnicDcMotorController::setMotorRunMode(boolean port, RunMode mode)
     
 }
 
-/*uint16_t HiTechnicDcMotorController::getBatteryVoltage()
+uint16_t HiTechnicDcMotorController::getBatteryVoltage()
 {
-    Wire.beginTransmission(i2cAddr); //We're talking to the guy at i2cAddr
-    Wire.write(REGISTER_BATTERY_VOLTAGE_HIGH_BYTE); //We're going to read from this memory address
-    Wire.endTransmission
-}*/
+    uint16_t voltage = 0;
 
+    uint8_t bytes[2];
+
+    readMultiple(0x54, 2, bytes);
+
+    voltage |= bytes[0] << 2;
+    voltage |= bytes[1];
+    
+    return voltage*20;
+}
+
+float HiTechnicDcMotorController::getBatteryVoltageFloat()
+{
+    return getBatteryVoltage() / 1000.0;
+}

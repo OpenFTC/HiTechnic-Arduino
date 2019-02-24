@@ -27,6 +27,8 @@ class HiTechnicDcMotorController : public HiTechnicController
         void setMotorICoeff(boolean port, uint8_t kI);
         void setMotorDCoeff(boolean port, uint8_t kD);
         void setMotorRunMode(boolean port, RunMode mode);
+        uint16_t getBatteryVoltage();
+        float getBatteryVoltageFloat();
 };
 
 #endif

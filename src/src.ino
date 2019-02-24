@@ -7,10 +7,10 @@
 #define PRESCALAR 4
 #define TWI_FREQ 37390L
 
-HiTechnicDcMotorController mc1(HiTechnicController::DAISY_CHAIN_POSITION_FIRST);
+HiTechnicDcMotorController mc1(HiTechnicController::DAISY_CHAIN_POSITION_SECOND);
 HiTechnicMotor someMotor(&mc1, 0);
 
-HiTechnicServoController sc1(HiTechnicController::DAISY_CHAIN_POSITION_SECOND);
+HiTechnicServoController sc1(HiTechnicController::DAISY_CHAIN_POSITION_FIRST);
 HiTechnicServo someServo(&sc1, HiTechnicServoController::SERVO_PORT_1);
 
 void setup()
@@ -26,11 +26,14 @@ void setup()
 
 void loop()
 {
-    someMotor.setPower(20);
-    someServo.setPosition(100);
+    Serial.print("Voltage: ");
+    Serial.println(mc1.getBatteryVoltageFloat());
+    
+    someMotor.setPower(0);
+    someServo.setPosition(127);
     delay(500);
-    someServo.setPosition(102);
-    someMotor.setPower(30);
+    someServo.setPosition(130);
+    someMotor.setPower(100);
     delay(500);
-}
 
+}
