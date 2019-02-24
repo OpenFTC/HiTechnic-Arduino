@@ -3,11 +3,6 @@
 #ifndef HiTechnicController_h
 #define HiTechnicController_h
 
-#define NUM_MFR_BYTES 8
-#define REGISTER_MFR 0x08
-#define REGISTER_SENSOR_TYPE 0x10
-#define NUM_SENSOR_TYPE_BYTES 8
-
 class HiTechnicController
 {
     public:
@@ -29,6 +24,11 @@ class HiTechnicController
     
     private:
         uint8_t i2cAddr;
+
+        static const uint8_t NUM_MFR_BYTES = 8;
+        static const uint8_t REGISTER_MFR = 0x08;
+        static const uint8_t REGISTER_SENSOR_TYPE = 0x10;
+        static const uint8_t NUM_SENSOR_TYPE_BYTES = 8;
 };
 
 #endif

@@ -4,24 +4,6 @@
 #ifndef HiTechnicDcMotorController_h
 #define HiTechnicDcMotorController_h
 
-#define REGISTER_MOTOR_1_POWER 0x45
-#define REGISTER_MOTOR_2_POWER 0x46
-#define MIN_MOTOR_POWER -100
-#define MAX_MOTOR_POWER 100
-
-#define REGISTER_MOTOR_1_ENC_HIGH_BYTE 0x4C
-#define REGISTER_MOTOR_2_ENC_HIGH_BYTE 0x50
-
-#define REGISTER_BATTERY_VOLTAGE_HIGH_BYTE 0x54
-
-#define REGISTER_MOTOR_1_P_COEFF 0x57
-#define REGISTER_MOTOR_1_I_COEFF 0x58
-#define REGISTER_MOTOR_1_D_COEFF 0x59
-
-#define REGISTER_MOTOR_2_P_COEFF 0x5B
-#define REGISTER_MOTOR_2_I_COEFF 0x5C
-#define REGISTER_MOTOR_2_D_COEFF 0x5D
-
 class HiTechnicDcMotorController : public HiTechnicController
 {
     public:
@@ -44,6 +26,20 @@ class HiTechnicDcMotorController : public HiTechnicController
     private:
         bool m1Brake = false;
         bool m2Brake = false;
+
+        static const uint8_t REGISTER_MOTOR_1_POWER = 0x45;
+        static const uint8_t REGISTER_MOTOR_2_POWER = 0x46;
+        static const uint8_t MIN_MOTOR_POWER = -100;
+        static const uint8_t MAX_MOTOR_POWER = 100;
+        static const uint8_t REGISTER_MOTOR_1_ENC_HIGH_BYTE = 0x4C;
+        static const uint8_t REGISTER_MOTOR_2_ENC_HIGH_BYTE = 0x50;
+        static const uint8_t REGISTER_BATTERY_VOLTAGE_HIGH_BYTE = 0x54;
+        static const uint8_t REGISTER_MOTOR_1_P_COEFF = 0x57;
+        static const uint8_t REGISTER_MOTOR_1_I_COEFF = 0x58;
+        static const uint8_t REGISTER_MOTOR_1_D_COEFF = 0x59;
+        static const uint8_t REGISTER_MOTOR_2_P_COEFF = 0x5B;
+        static const uint8_t REGISTER_MOTOR_2_I_COEFF = 0x5C;
+        static const uint8_t REGISTER_MOTOR_2_D_COEFF = 0x5D;
 };
 
 #endif
