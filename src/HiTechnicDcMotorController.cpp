@@ -63,6 +63,39 @@ void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
     }
 }
 
+void HiTechnicDcMotorController::setMotorTargetPosition(MotorPort port, int32_t tPos)
+{
+    if(!(int)port) //Port 1
+    {
+        writeSigned32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE, tPos);
+    }
+    else //Port 2
+    {
+        writeSigned32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE, tPos);
+    }
+}
+
+int32_t HiTechnicDcMotorController::getMotorTargetPosition(MotorPort port)
+{
+    if(!(int)port) //Port 1
+    {
+        return readSigned32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE);
+    }
+    else //Port 2
+    {
+        return readSigned32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE);
+    }
+}
+
+boolean HiTechnicDcMotorController::isMotorBusy(MotorPort port)
+{
+    /*
+     * We could actually talk to the hardware, but we replicate what the SDK does
+     * Besides, then we don't have to worry about the 50ms issue.
+     */
+    return abs(getMotorTargetPosition(port) - getMotorCurrentPosition(port)) > BUSY_THRESHOLD;
+}
+
 void HiTechnicDcMotorController::setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD)
 {
     if(!(int)port) //Port 1
@@ -115,7 +148,32 @@ void HiTechnicDcMotorController::setMotorDCoeff(MotorPort port, uint8_t kD)
 
 void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
 {
-    
+    if(!(int)port) //Port 1
+    {
+        m1Mode ^= MOTOR_MODE_MASK_SELECTION; //use an XOR to clear the bits
+        m1Mode |= (uint8_t)mode; //Now set the bits for the mode the user actually wants
+        
+        write8(REGISTER_MOTOR_1_MODE, m1Mode);
+
+        //This is what the SDK does but for some reason it doesn't work here
+        //while((read8(REGISTER_MOTOR_1_MODE) & (uint8_t)MOTOR_MODE_MASK_SELECTION) != (uint8_t)mode)
+        //    ; //Wait for the mode switch to actually happen
+
+        delay(50); //Not sure how else to do this other than just blindly wait :(
+    }
+    else //Port 2
+    {
+        m2Mode ^= MOTOR_MODE_MASK_SELECTION; //use an XOR to clear the bits
+        m2Mode |= (uint8_t)mode; //Now set the bits for the mode the user actually wants
+        
+        write8(REGISTER_MOTOR_2_MODE, m2Mode);
+        
+        //This is what the SDK does but for some reason it doesn't work here
+        //while((read8(REGISTER_MOTOR_2_MODE) & (uint8_t)MOTOR_MODE_MASK_SELECTION) != (uint8_t)mode)
+        //    ; //Wait for the mode switch to actually happen
+
+        delay(50); //Not sure how else to do this other than just blindly wait :(
+    }
 }
 
 int32_t HiTechnicDcMotorController::getMotorCurrentPosition(MotorPort port)

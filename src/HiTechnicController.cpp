@@ -52,6 +52,19 @@ void HiTechnicController::writeMultiple(uint8_t reg, uint8_t data[], uint8_t len
     Wire.endTransmission();
 }
 
+void HiTechnicController::writeSigned32(uint8_t reg, int32_t data)
+{
+    Wire.beginTransmission(i2cAddr);
+    Wire.write(reg);
+    
+    Wire.write(uint8_t(data >> 24));
+    Wire.write(uint8_t(data >> 16)); 
+    Wire.write(uint8_t(data >> 8));
+    Wire.write(uint8_t(data));
+    
+    Wire.endTransmission();
+}
+
 //--------------------------------------------------------------------------------
 // I2C single/multiple byte read commands for registers
 //--------------------------------------------------------------------------------

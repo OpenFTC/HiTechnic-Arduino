@@ -13,6 +13,7 @@ class HiTechnicController
 
     protected:
         void write8(uint8_t reg, uint8_t val);
+        void writeSigned32(uint8_t reg, int32_t data);
         void writeMultiple(uint8_t reg, uint8_t data[], uint8_t len);
         uint8_t read8(uint8_t reg);
         void readMultiple(uint8_t reg, uint8_t num, uint8_t* out);

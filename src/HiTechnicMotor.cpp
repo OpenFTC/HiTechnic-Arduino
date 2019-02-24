@@ -48,6 +48,16 @@ int32_t HiTechnicMotor::getCurrentPosition()
     }
 }
 
+boolean HiTechnicMotor::isBusy()
+{
+    return controller->isMotorBusy(port);
+}
+
+void HiTechnicMotor::setTargetPosition(int32_t tPos)
+{
+    controller->setMotorTargetPosition(port, tPos);
+}
+
 void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b)
 {
     controller->setMotorZeroPowerBehavior(port, b);

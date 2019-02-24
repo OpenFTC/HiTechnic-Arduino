@@ -18,13 +18,17 @@ void setup()
 {
     Serial.begin(9600); //set up serial
     while(!Serial);
+
+    Serial.println("\nHello");
     
     Wire.begin(); //join the i2c bus
     
     sc1.enablePwm(false); //enable without disabling the timeout
-    mc1.setMotorRunMode(HiTechnicDcMotorController::MotorPort::MOTOR_PORT_1, HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
 
-    someMotor2.setDirection(HiTechnicMotor::Direction::REVERSE);
+    someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
+    someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::RUN_TO_POSITION);
+    someMotor2.setTargetPosition(2000);
+    someMotor2.setDirection(HiTechnicMotor::Direction::FORWARD);
 }
 
 void loop()
@@ -36,5 +40,7 @@ void loop()
 
     Serial.print("Enc1: ");
     Serial.println(someMotor2.getCurrentPosition());
+    Serial.print("Busy: ");
+    Serial.println(someMotor2.isBusy());
     delay(250);
 }

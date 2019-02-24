@@ -15,6 +15,8 @@ class HiTechnicMotor
         void setICoeff(uint8_t kI);
         void setDCoeff(uint8_t kD);
         void setRunMode(HiTechnicDcMotorController::RunMode mode);
+        void setTargetPosition(int32_t tPos);
+        boolean isBusy();
         int32_t getCurrentPosition();
         void setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b);
         void setDirection(Direction dir);
