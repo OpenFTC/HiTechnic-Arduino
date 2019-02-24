@@ -30,18 +30,11 @@ void loop()
     //Serial.print("Voltage: ");
     //Serial.println(mc1.getBatteryVoltageFloat());
 
-    Serial.print("Enc1: ");
-    Serial.println(someMotor.getCurrentPosition());
-    Serial.print("Enc2: ");
-    Serial.println(someMotor2.getCurrentPosition());
-
-    delay(50);
-    
+    someMotor.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::FLOAT);
     someMotor.setPower(0);
-    someServo.setPosition(127);
-    delay(500);
-    someServo.setPosition(130);
-    someMotor.setPower(100);
-    delay(500);
+    delay(1000);
+    someMotor.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::BRAKE);
+    someMotor.setPower(0);
+    delay(1000);
 
 }

@@ -19,6 +19,19 @@ HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) :
  */
 void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
 {
+    clipSigned8(&power1, MIN_MOTOR_POWER, MAX_MOTOR_POWER);
+    clipSigned8(&power2, MIN_MOTOR_POWER, MAX_MOTOR_POWER);
+
+    if((power1 == 0) && !m1Brake) //do we need to float?
+    {
+        power1 = -128;
+    }
+
+    if((power2 == 0) && !m2Brake) //do we need to float?
+    {
+        power2 = -128;
+    }
+    
     int8_t data[2] = {power1, power2};
     writeMultiple(REGISTER_MOTOR_1_POWER, data, 2);
 }
@@ -28,12 +41,24 @@ void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
  */
 void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
 {
-    if(!(int)port)
+    clipSigned8(&power, MIN_MOTOR_POWER, MAX_MOTOR_POWER);
+    
+    if(!(int)port) //Port 1
     {
+        if((power == 0) && !m1Brake) //do we need to float?
+        {
+           power = -128;
+        }
+        
         write8(REGISTER_MOTOR_1_POWER, power);
     }
-    else
+    else //Port 2
     {
+        if((power == 0) && !m2Brake) //do we need to float?
+        {
+           power = -128;
+        }
+        
         write8(REGISTER_MOTOR_2_POWER, power);
     }
 }
@@ -102,6 +127,18 @@ int32_t HiTechnicDcMotorController::getMotorCurrentPosition(MotorPort port)
     else //Port 2
     {
         return readSigned32(REGISTER_MOTOR_2_ENC_HIGH_BYTE);
+    }
+}
+
+void HiTechnicDcMotorController::setMotorZeroPowerBehavior(MotorPort port, ZeroPowerBehavior b)
+{
+    if(!(int)port) //Port 1
+    {
+        m1Brake = (int)b;
+    }
+    else //Port 2
+    {
+        m2Brake = (int)b;
     }
 }
 

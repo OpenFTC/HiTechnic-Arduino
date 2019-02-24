@@ -15,6 +15,7 @@ class HiTechnicMotor
         void setDCoeff(uint8_t kD);
         void setRunMode(HiTechnicDcMotorController::RunMode mode);
         int32_t getCurrentPosition();
+        void setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b);
 
     private:
         HiTechnicDcMotorController::MotorPort port;

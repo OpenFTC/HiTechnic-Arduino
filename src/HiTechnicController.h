@@ -25,6 +25,7 @@ class HiTechnicController
         uint32_t readUnsigned32(uint8_t reg);
         int32_t byteArrayToSigned32bitInt(uint8_t* bytes);
         uint32_t byteArrayToUnsigned32bitInt(uint8_t* bytes);
+        void clipSigned8(int8_t* val, int8_t min, int8_t max);
     
     private:
         uint8_t i2cAddr;

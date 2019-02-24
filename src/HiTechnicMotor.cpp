@@ -29,6 +29,12 @@ int32_t HiTechnicMotor::getCurrentPosition()
     return controller->getMotorCurrentPosition(port);
 }
 
+void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b)
+{
+    controller->setMotorZeroPowerBehavior(port, b);
+}
+
+
 /*
  * -------------------------------------------------------------------------------
  * Mode

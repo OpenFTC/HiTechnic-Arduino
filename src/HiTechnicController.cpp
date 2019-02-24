@@ -139,3 +139,15 @@ uint32_t HiTechnicController::byteArrayToUnsigned32bitInt(uint8_t* bytes)
 
     return i;
 }
+
+void HiTechnicController::clipSigned8(int8_t* val, int8_t min, int8_t max)
+{
+    if(*val > max)
+    {
+        *val = max;
+    }
+    else if(*val < min)
+    {
+        *val = min;
+    }
+}
