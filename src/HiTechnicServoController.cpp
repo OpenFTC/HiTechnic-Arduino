@@ -14,7 +14,7 @@ HiTechnicServoController::HiTechnicServoController(DaisyChainPosition pos) : HiT
 void HiTechnicServoController::setServoPosition(ServoPort port, uint8_t pos)
 {
     //Rather than a switch statement, just offset from the base mem addr
-    write8(REGISTER_SERVO_POS_BASE + (int)port, pos);
+    write8(REGISTER_SERVO_1_POS + (int)port, pos);
 }
 
 void HiTechnicServoController::setPwmEnabled(boolean en)
@@ -28,4 +28,3 @@ void HiTechnicServoController::setPwmEnabled(boolean en)
         write8(REGISTER_ENABLE_PWM, PWM_DISABLED);
     }
 }
-

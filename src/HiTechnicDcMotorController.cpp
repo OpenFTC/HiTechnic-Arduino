@@ -111,7 +111,7 @@ uint16_t HiTechnicDcMotorController::getBatteryVoltage()
 
     uint8_t bytes[2];
 
-    readMultiple(0x54, 2, bytes);
+    readMultiple(REGISTER_BATTERY_VOLTAGE_HIGH_BYTE, 2, bytes);
 
     voltage |= bytes[0] << 2;
     voltage |= bytes[1];
