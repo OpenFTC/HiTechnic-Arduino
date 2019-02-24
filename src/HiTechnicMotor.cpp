@@ -13,6 +13,11 @@ HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnic
     this->port = port;
 }
 
+HiTechnicDcMotorController* HiTechnicMotor::getController()
+{
+    return controller;
+}
+
 /*
  * -------------------------------------------------------------------------------
  * Power

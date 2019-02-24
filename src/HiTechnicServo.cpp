@@ -13,6 +13,11 @@ HiTechnicServo::HiTechnicServo(HiTechnicServoController* controller, HiTechnicSe
     this->port = port;
 }
 
+HiTechnicServoController* HiTechnicServo::getController()
+{
+    return controller;
+}
+
 /*
  * -------------------------------------------------------------------------------
  * Position

@@ -18,6 +18,7 @@ class HiTechnicMotor
         int32_t getCurrentPosition();
         void setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b);
         void setDirection(Direction dir);
+        HiTechnicDcMotorController* getController();
 
     private:
         HiTechnicDcMotorController::MotorPort port;
