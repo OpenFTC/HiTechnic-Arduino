@@ -8,6 +8,7 @@ class HiTechnicMotor
 {
     public:
         HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnicDcMotorController::MotorPort port);
+        enum class Direction {FORWARD = 0, REVERSE};
         void setPower(int8_t power);
         void setPidCoeffs(uint8_t kP, uint8_t kI, uint8_t kD);
         void setPCoeff(uint8_t kP);
@@ -16,10 +17,12 @@ class HiTechnicMotor
         void setRunMode(HiTechnicDcMotorController::RunMode mode);
         int32_t getCurrentPosition();
         void setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b);
+        void setDirection(Direction dir);
 
     private:
         HiTechnicDcMotorController::MotorPort port;
         HiTechnicDcMotorController* controller;
+        bool rev = false;
 };
 
 #endif

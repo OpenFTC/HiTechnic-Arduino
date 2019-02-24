@@ -21,12 +21,26 @@ HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnic
 
 void HiTechnicMotor::setPower(int8_t power)
 {
-    controller->setMotorPower(port, power);
+    if(rev) //reverse
+    {
+        controller->setMotorPower(port, -power);
+    }
+    else //forwards
+    {
+        controller->setMotorPower(port, power);
+    }
 }
 
 int32_t HiTechnicMotor::getCurrentPosition()
 {
-    return controller->getMotorCurrentPosition(port);
+    if(rev) //reverse
+    {
+        return -(controller->getMotorCurrentPosition(port));
+    }
+    else //forwards
+    {
+        return controller->getMotorCurrentPosition(port);
+    }
 }
 
 void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b)
@@ -34,6 +48,17 @@ void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerB
     controller->setMotorZeroPowerBehavior(port, b);
 }
 
+void HiTechnicMotor::setDirection(Direction dir)
+{
+    if((int)dir) //reverse
+    {
+        rev = true;
+    }
+    else //forwards
+    {
+        rev = false;
+    }
+}
 
 /*
  * -------------------------------------------------------------------------------
