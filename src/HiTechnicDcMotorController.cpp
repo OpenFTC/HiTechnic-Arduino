@@ -26,9 +26,9 @@ void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
 /*
  * Set the power for an indiviudal motor
  */
-void HiTechnicDcMotorController::setMotorPower(boolean port, int8_t power)
+void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
 {
-    if(!port)
+    if(!(int)port)
     {
         write8(REGISTER_MOTOR_1_POWER, power);
     }
@@ -38,9 +38,9 @@ void HiTechnicDcMotorController::setMotorPower(boolean port, int8_t power)
     }
 }
 
-void HiTechnicDcMotorController::setMotorPIDCoeffs(boolean port, uint8_t kP, uint8_t kI, uint8_t kD)
+void HiTechnicDcMotorController::setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD)
 {
-    if(!port) //Port 1
+    if(!(int)port) //Port 1
     {
         uint8_t pid[] = {kP, kI, kD};
         writeMultiple(REGISTER_MOTOR_1_P_COEFF, pid, 3);
@@ -52,9 +52,9 @@ void HiTechnicDcMotorController::setMotorPIDCoeffs(boolean port, uint8_t kP, uin
     }
 }
 
-void HiTechnicDcMotorController::setMotorPCoeff(boolean port, uint8_t kP)
+void HiTechnicDcMotorController::setMotorPCoeff(MotorPort port, uint8_t kP)
 {
-    if(!port) //Port 1
+    if(!(int)port) //Port 1
     {
         write8(REGISTER_MOTOR_1_P_COEFF, kP);
     }
@@ -64,9 +64,9 @@ void HiTechnicDcMotorController::setMotorPCoeff(boolean port, uint8_t kP)
     }
 }
 
-void HiTechnicDcMotorController::setMotorICoeff(boolean port, uint8_t kI)
+void HiTechnicDcMotorController::setMotorICoeff(MotorPort port, uint8_t kI)
 {
-    if(!port) //Port 1
+    if(!(int)port) //Port 1
     {
         write8(REGISTER_MOTOR_1_I_COEFF, kI);
     }
@@ -76,9 +76,9 @@ void HiTechnicDcMotorController::setMotorICoeff(boolean port, uint8_t kI)
     }
 }
 
-void HiTechnicDcMotorController::setMotorDCoeff(boolean port, uint8_t kD)
+void HiTechnicDcMotorController::setMotorDCoeff(MotorPort port, uint8_t kD)
 {
-    if(!port) //Port 1
+    if(!(int)port) //Port 1
     {
         write8(REGISTER_MOTOR_1_D_COEFF, kD);
     }
@@ -88,14 +88,14 @@ void HiTechnicDcMotorController::setMotorDCoeff(boolean port, uint8_t kD)
     }
 }
 
-void HiTechnicDcMotorController::setMotorRunMode(boolean port, RunMode mode)
+void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
 {
     
 }
 
-int32_t HiTechnicDcMotorController::getMotorCurrentPosition(boolean port)
+int32_t HiTechnicDcMotorController::getMotorCurrentPosition(MotorPort port)
 {
-    if(!port) //Port 1
+    if(!(int)port) //Port 1
     {
         return readSigned32(REGISTER_MOTOR_1_ENC_HIGH_BYTE);
     }

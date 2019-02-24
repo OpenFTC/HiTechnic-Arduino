@@ -7,7 +7,7 @@
 class HiTechnicMotor
 {
     public:
-        HiTechnicMotor(HiTechnicDcMotorController* controller, boolean port);
+        HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnicDcMotorController::MotorPort port);
         void setPower(int8_t power);
         void setPidCoeffs(uint8_t kP, uint8_t kI, uint8_t kD);
         void setPCoeff(uint8_t kP);
@@ -17,7 +17,7 @@ class HiTechnicMotor
         int32_t getCurrentPosition();
 
     private:
-        boolean port;
+        HiTechnicDcMotorController::MotorPort port;
         HiTechnicDcMotorController* controller;
 };
 

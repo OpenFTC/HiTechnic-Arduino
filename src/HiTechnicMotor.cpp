@@ -7,7 +7,7 @@
  * Constructor
  * -------------------------------------------------------------------------------
  */
-HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, boolean port)
+HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnicDcMotorController::MotorPort port)
 {
     this->controller = controller;
     this->port = port;
