@@ -40,3 +40,10 @@ void HiTechnicServoController::disablePwm()
 {
      write8(REGISTER_ENABLE_PWM, PWM_DISABLED);
 }
+
+void HiTechnicServoController::setStepTime(uint8_t t)
+{
+    clipSigned8(&t, 0, 15);
+
+    write8(REGISTER_STEP_TIME, t);
+}
