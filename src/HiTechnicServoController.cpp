@@ -24,14 +24,19 @@ uint8_t HiTechnicServoController::getServoPosition(ServoPort port)
     return commandedPositions[port];
 }
 
-void HiTechnicServoController::setPwmEnabled(boolean en)
+void HiTechnicServoController::enablePwm(boolean noTimeout)
 {
-    if(en)
+    if(noTimeout)
     {
-        write8(REGISTER_ENABLE_PWM, PWM_ENABLED);
+        write8(REGISTER_ENABLE_PWM, PWM_ENABLED_NTO);
     }
     else
     {
-        write8(REGISTER_ENABLE_PWM, PWM_DISABLED);
+        write8(REGISTER_ENABLE_PWM, PWM_ENABLED);
     }
+}
+
+void HiTechnicServoController::disablePwm()
+{
+     write8(REGISTER_ENABLE_PWM, PWM_DISABLED);
 }

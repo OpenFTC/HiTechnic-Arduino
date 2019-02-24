@@ -21,7 +21,7 @@ void setup()
     
     Wire.begin(); //join the i2c bus
     
-    sc1.setPwmEnabled(true);
+    sc1.enablePwm(false); //enable without disabling the timeout
     mc1.setMotorRunMode(HiTechnicDcMotorController::MotorPort::MOTOR_PORT_1, HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
 
     someMotor2.setDirection(HiTechnicMotor::Direction::REVERSE);

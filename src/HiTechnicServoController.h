@@ -10,7 +10,8 @@ class HiTechnicServoController : public HiTechnicController
         HiTechnicServoController(DaisyChainPosition pos);
         enum ServoPort {SERVO_PORT_1 = 0, SERVO_PORT_2, SERVO_PORT_3, SERVO_PORT_4, SERVO_PORT_5, SERVO_PORT_6};
         void setServoPosition(ServoPort port, uint8_t pos);
-        void setPwmEnabled(boolean en);
+        void enablePwm(boolean noTimeout);
+        void disablePwm();
         uint8_t getServoPosition(ServoPort port);
 
     private:
@@ -20,6 +21,7 @@ class HiTechnicServoController : public HiTechnicController
         static const uint8_t REGISTER_ENABLE_PWM = 0x48;
         static const uint8_t PWM_DISABLED = 255;
         static const uint8_t PWM_ENABLED = 0;
+        static const uint8_t PWM_ENABLED_NTO = 0xAA;
 };
 
 #endif
