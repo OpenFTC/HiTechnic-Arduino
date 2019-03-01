@@ -47,9 +47,10 @@ void setup()
     sc1.enablePwm(false); //enable without disabling the timeout
 
     someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
-    someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::RUN_TO_POSITION);
-    someMotor2.setTargetPosition(2000);
+    someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::RUN_USING_ENCODER);
     someMotor2.setDirection(HiTechnicMotor::Direction::FORWARD);
+    someMotor2.setPower(20);
+    someMotor2.getController()->setTimeoutEnabled(false);
 }
 
 void loop()
@@ -57,11 +58,11 @@ void loop()
     //Serial.print("Voltage: ");
     //Serial.println(mc1.getBatteryVoltageFloat());
 
-    someMotor2.setPower(5);
+    //someMotor2.setPower(5);
 
-    Serial.print("Enc1: ");
+    /*Serial.print("Enc1: ");
     Serial.println(someMotor2.getCurrentPosition());
     Serial.print("Busy: ");
-    Serial.println(someMotor2.isBusy());
+    Serial.println(someMotor2.isBusy());*/
     delay(250);
 }

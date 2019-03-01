@@ -46,6 +46,7 @@ class HiTechnicDcMotorController : public HiTechnicController
         boolean isMotorBusy(MotorPort port);
         uint16_t getBatteryVoltage();
         float getBatteryVoltageFloat();
+        void setTimeoutEnabled(boolean timeoutEnabled);
 
     private:
         bool m1Brake = false;
@@ -59,6 +60,7 @@ class HiTechnicDcMotorController : public HiTechnicController
         static const uint8_t REGISTER_MOTOR_1_MODE = 0x44;
         static const uint8_t REGISTER_MOTOR_2_MODE = 0x47;
         static const uint8_t MOTOR_MODE_MASK_SELECTION = 0x03;
+        static const uint8_t NTO_BIT = 0x10;
         static const uint8_t MIN_MOTOR_POWER = -100;
         static const uint8_t MAX_MOTOR_POWER = 100;
         static const uint8_t REGISTER_MOTOR_1_ENC_HIGH_BYTE = 0x4C;

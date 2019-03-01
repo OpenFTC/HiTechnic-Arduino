@@ -221,6 +221,23 @@ void HiTechnicDcMotorController::setMotorZeroPowerBehavior(MotorPort port, ZeroP
     }
 }
 
+void HiTechnicDcMotorController::setTimeoutEnabled(boolean enableTimeout)
+{
+    if(!enableTimeout)
+    {
+        m1Mode |= NTO_BIT;
+        m2Mode |= NTO_BIT;
+    }
+    else
+    {
+        m1Mode ^= NTO_BIT;
+        m2Mode ^= NTO_BIT;
+    }
+
+    write8(REGISTER_MOTOR_1_MODE, m1Mode);
+    write8(REGISTER_MOTOR_2_MODE, m2Mode);
+}
+
 uint16_t HiTechnicDcMotorController::getBatteryVoltage()
 {
     uint16_t voltage = 0;
