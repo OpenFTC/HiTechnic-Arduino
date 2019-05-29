@@ -69,7 +69,7 @@ int32_t HiTechnicMotor::getCurrentPosition()
     }
 }
 
-boolean HiTechnicMotor::isBusy()
+bool HiTechnicMotor::isBusy()
 {
     return controller->isMotorBusy(port);
 }

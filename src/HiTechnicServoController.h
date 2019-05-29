@@ -31,7 +31,7 @@ class HiTechnicServoController : public HiTechnicController
         HiTechnicServoController(DaisyChainPosition pos);
         enum ServoPort {SERVO_PORT_1 = 0, SERVO_PORT_2, SERVO_PORT_3, SERVO_PORT_4, SERVO_PORT_5, SERVO_PORT_6};
         void setServoPosition(ServoPort port, uint8_t pos);
-        void enablePwm(boolean noTimeout);
+        void enablePwm(bool noTimeout);
         void disablePwm();
         void setStepTime(uint8_t t);
         uint8_t getServoPosition(ServoPort port);

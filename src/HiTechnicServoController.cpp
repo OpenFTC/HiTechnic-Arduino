@@ -45,7 +45,7 @@ uint8_t HiTechnicServoController::getServoPosition(ServoPort port)
     return commandedPositions[port];
 }
 
-void HiTechnicServoController::enablePwm(boolean noTimeout)
+void HiTechnicServoController::enablePwm(bool noTimeout)
 {
     if(noTimeout)
     {

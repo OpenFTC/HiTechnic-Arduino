@@ -108,7 +108,7 @@ int32_t HiTechnicDcMotorController::getMotorTargetPosition(MotorPort port)
     }
 }
 
-boolean HiTechnicDcMotorController::isMotorBusy(MotorPort port)
+bool HiTechnicDcMotorController::isMotorBusy(MotorPort port)
 {
     /*
      * We could actually talk to the hardware, but we replicate what the SDK does
@@ -221,7 +221,7 @@ void HiTechnicDcMotorController::setMotorZeroPowerBehavior(MotorPort port, ZeroP
     }
 }
 
-void HiTechnicDcMotorController::setTimeoutEnabled(boolean enableTimeout)
+void HiTechnicDcMotorController::setTimeoutEnabled(bool enableTimeout)
 {
     if(!enableTimeout)
     {

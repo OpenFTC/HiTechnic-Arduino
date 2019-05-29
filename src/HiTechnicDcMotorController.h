@@ -43,10 +43,10 @@ class HiTechnicDcMotorController : public HiTechnicController
         int32_t getMotorCurrentPosition(MotorPort port);
         void setMotorTargetPosition(MotorPort port, int32_t tPos);
         int32_t getMotorTargetPosition(MotorPort port);
-        boolean isMotorBusy(MotorPort port);
+        bool isMotorBusy(MotorPort port);
         uint16_t getBatteryVoltage();
         float getBatteryVoltageFloat();
-        void setTimeoutEnabled(boolean timeoutEnabled);
+        void setTimeoutEnabled(bool timeoutEnabled);
 
     private:
         bool m1Brake = false;
