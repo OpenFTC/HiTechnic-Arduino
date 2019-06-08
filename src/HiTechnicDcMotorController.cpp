@@ -23,14 +23,16 @@
 #include "HiTechnicDcMotorController.h"
 
 /*
- * -------------------------------------------------------------------------------
  * Constructor
- * -------------------------------------------------------------------------------
  */
 HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) : HiTechnicController(pos)
 {
     /* Nothing to see here, move along :P */
 }
+
+//--------------------------------------------------------------------------------
+// Functions for getting/setting motor power
+//--------------------------------------------------------------------------------
 
 /*
  * Set the power for both motors at the same time;
@@ -57,7 +59,7 @@ void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
 }
 
 /*
- * Set the power for an indiviudal motor
+ * Set the power for a motor
  */
 void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
 {
@@ -83,100 +85,29 @@ void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
     }
 }
 
-void HiTechnicDcMotorController::setMotorTargetPosition(MotorPort port, int32_t tPos)
+//--------------------------------------------------------------------------------
+// Encoder
+//--------------------------------------------------------------------------------
+
+int32_t HiTechnicDcMotorController::getMotorCurrentPosition(MotorPort port)
 {
     if(!(int)port) //Port 1
     {
-        write32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE, tPos);
+        return read32(REGISTER_MOTOR_1_ENC_HIGH_BYTE);
     }
     else //Port 2
     {
-        write32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE, tPos);
+        return read32(REGISTER_MOTOR_2_ENC_HIGH_BYTE);
     }
 }
 
-int32_t HiTechnicDcMotorController::getMotorTargetPosition(MotorPort port)
-{
-    if(!(int)port) //Port 1
-    {
-        return read32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE);
-    }
-    else //Port 2
-    {
-        return read32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE);
-    }
-}
+//--------------------------------------------------------------------------------
+// Modes and behaviors
+//--------------------------------------------------------------------------------
 
-bool HiTechnicDcMotorController::isMotorBusy(MotorPort port)
-{
-    /*
-     * We could actually talk to the hardware, but we replicate what the SDK does
-     * Besides, then we don't have to worry about the 50ms issue.
-     */
-    int32_t err = getMotorTargetPosition(port) - getMotorCurrentPosition(port);
-
-    /*
-     * We don't use Arduino's built-in abs() function so as to be more portable
-     * to other platforms
-     */
-    if(err < 0)
-    {
-        err = -err;
-    }
-     
-    return err > BUSY_THRESHOLD;
-}
-
-void HiTechnicDcMotorController::setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD)
-{
-    if(!(int)port) //Port 1
-    {
-        uint8_t pid[] = {kP, kI, kD};
-        writeMultiple(REGISTER_MOTOR_1_P_COEFF, pid, 3);
-    }
-    else //Port 2
-    {
-        uint8_t pid[] = {kP, kI, kD};
-        writeMultiple(REGISTER_MOTOR_2_P_COEFF, pid, 3);
-    }
-}
-
-void HiTechnicDcMotorController::setMotorPCoeff(MotorPort port, uint8_t kP)
-{
-    if(!(int)port) //Port 1
-    {
-        write8(REGISTER_MOTOR_1_P_COEFF, kP);
-    }
-    else //Port 2
-    {
-        write8(REGISTER_MOTOR_2_P_COEFF, kP);
-    }
-}
-
-void HiTechnicDcMotorController::setMotorICoeff(MotorPort port, uint8_t kI)
-{
-    if(!(int)port) //Port 1
-    {
-        write8(REGISTER_MOTOR_1_I_COEFF, kI);
-    }
-    else //Port 2
-    {
-        write8(REGISTER_MOTOR_2_I_COEFF, kI);
-    }
-}
-
-void HiTechnicDcMotorController::setMotorDCoeff(MotorPort port, uint8_t kD)
-{
-    if(!(int)port) //Port 1
-    {
-        write8(REGISTER_MOTOR_1_D_COEFF, kD);
-    }
-    else //Port 2
-    {
-        write8(REGISTER_MOTOR_2_D_COEFF, kD);
-    }
-}
-
+/*
+ * Set the run mode for a motor
+ */
 void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
 {
     if(!(int)port) //Port 1
@@ -209,18 +140,9 @@ void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
     }
 }
 
-int32_t HiTechnicDcMotorController::getMotorCurrentPosition(MotorPort port)
-{
-    if(!(int)port) //Port 1
-    {
-        return read32(REGISTER_MOTOR_1_ENC_HIGH_BYTE);
-    }
-    else //Port 2
-    {
-        return read32(REGISTER_MOTOR_2_ENC_HIGH_BYTE);
-    }
-}
-
+/*
+ * Set the zero power behavior for a motor
+ */
 void HiTechnicDcMotorController::setMotorZeroPowerBehavior(MotorPort port, ZeroPowerBehavior b)
 {
     if(!(int)port) //Port 1
@@ -233,8 +155,16 @@ void HiTechnicDcMotorController::setMotorZeroPowerBehavior(MotorPort port, ZeroP
     }
 }
 
+/*
+ * Set whether the controller's internal 2500ms no-comms timeout should be activated
+ */
 void HiTechnicDcMotorController::setTimeoutEnabled(bool enableTimeout)
 {
+    /*
+     * The spec says we need to set the NTO bit on both of the motor
+     * mode registers. *shrug*
+     */
+  
     if(!enableTimeout)
     {
         m1Mode |= NTO_BIT;
@@ -246,10 +176,144 @@ void HiTechnicDcMotorController::setTimeoutEnabled(bool enableTimeout)
         m2Mode ^= NTO_BIT;
     }
 
+    /*
+     * The mode registers for motors 1 and 2 are not contiguous, so
+     * we cannot simply do a 2-byte write at the register for motor 1
+     */
     write8(REGISTER_MOTOR_1_MODE, m1Mode);
     write8(REGISTER_MOTOR_2_MODE, m2Mode);
 }
 
+//--------------------------------------------------------------------------------
+// Functions related to RTP mode
+//--------------------------------------------------------------------------------
+
+/*
+ * Set the encoder value a motor should target in RTP mode
+ */
+void HiTechnicDcMotorController::setMotorTargetPosition(MotorPort port, int32_t tPos)
+{ 
+    if(!(int)port) //Port 1
+    {
+        write32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE, tPos);
+    }
+    else //Port 2
+    {
+        write32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE, tPos);
+    }
+}
+
+/*
+ * Get the encoder value a motor will target in RTP mode
+ */
+int32_t HiTechnicDcMotorController::getMotorTargetPosition(MotorPort port)
+{
+    if(!(int)port) //Port 1
+    {
+        return read32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE);
+    }
+    else //Port 2
+    {
+        return read32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE);
+    }
+}
+
+/*
+ * Find out whether a motor is NOT yet at its target position
+ */
+bool HiTechnicDcMotorController::isMotorBusy(MotorPort port)
+{
+    /*
+     * We could actually talk to the hardware, but we replicate what the SDK does
+     * Besides, then we don't have to worry about the 50ms issue.
+     */
+    int32_t err = getMotorTargetPosition(port) - getMotorCurrentPosition(port);
+
+    /*
+     * We don't use Arduino's built-in abs() function so as to be more portable
+     * to other platforms
+     */
+    if(err < 0)
+    {
+        err = -err;
+    }
+     
+    return err > BUSY_THRESHOLD;
+}
+
+//--------------------------------------------------------------------------------
+// Functions for setting PID params
+//--------------------------------------------------------------------------------
+
+/*
+ * Set the PID coefficients for a motor
+ */
+void HiTechnicDcMotorController::setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD)
+{
+    if(!(int)port) //Port 1
+    {
+        uint8_t pid[] = {kP, kI, kD};
+        writeMultiple(REGISTER_MOTOR_1_P_COEFF, pid, 3);
+    }
+    else //Port 2
+    {
+        uint8_t pid[] = {kP, kI, kD};
+        writeMultiple(REGISTER_MOTOR_2_P_COEFF, pid, 3);
+    }
+}
+
+/*
+ * Set only the P coefficient for a motor
+ */
+void HiTechnicDcMotorController::setMotorPCoeff(MotorPort port, uint8_t kP)
+{
+    if(!(int)port) //Port 1
+    {
+        write8(REGISTER_MOTOR_1_P_COEFF, kP);
+    }
+    else //Port 2
+    {
+        write8(REGISTER_MOTOR_2_P_COEFF, kP);
+    }
+}
+
+/*
+ * Set only the I coefficient for a motor
+ */
+void HiTechnicDcMotorController::setMotorICoeff(MotorPort port, uint8_t kI)
+{
+    if(!(int)port) //Port 1
+    {
+        write8(REGISTER_MOTOR_1_I_COEFF, kI);
+    }
+    else //Port 2
+    {
+        write8(REGISTER_MOTOR_2_I_COEFF, kI);
+    }
+}
+
+/*
+ * Set only the D coefficient for a motor
+ */
+void HiTechnicDcMotorController::setMotorDCoeff(MotorPort port, uint8_t kD)
+{
+    if(!(int)port) //Port 1
+    {
+        write8(REGISTER_MOTOR_1_D_COEFF, kD);
+    }
+    else //Port 2
+    {
+        write8(REGISTER_MOTOR_2_D_COEFF, kD);
+    }
+}
+
+//--------------------------------------------------------------------------------
+// Battery voltage
+//--------------------------------------------------------------------------------
+
+/*
+ * Get the battery voltage in millivolts
+ */
 uint16_t HiTechnicDcMotorController::getBatteryVoltage()
 {
     uint16_t voltage = 0;
@@ -264,6 +328,9 @@ uint16_t HiTechnicDcMotorController::getBatteryVoltage()
     return voltage*20;
 }
 
+/*
+ * Get the battery voltage as a floating-point value in volts
+ */
 float HiTechnicDcMotorController::getBatteryVoltageFloat()
 {
     return getBatteryVoltage() / 1000.0;
