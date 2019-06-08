@@ -52,6 +52,11 @@ class HiTechnicController
         static const uint8_t REGISTER_MFR = 0x08;
         static const uint8_t REGISTER_SENSOR_TYPE = 0x10;
         static const uint8_t NUM_SENSOR_TYPE_BYTES = 8;
+
+    public:
+        static const uint8_t NUM_SENSOR_TYPE_CHARS = NUM_SENSOR_TYPE_BYTES + 1; //Account for null char
+        static const uint8_t NUM_MFR_CHARS = NUM_MFR_BYTES + 1; //Account for null char
+    
 };
 
 #endif

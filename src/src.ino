@@ -19,6 +19,7 @@
  * SOFTWARE.
  */
 
+#include "HiTechnicController.h"
 #include "HiTechnicDcMotorController.h"
 #include "HiTechnicMotor.h"
 #include "HiTechnicServoController.h"
@@ -58,11 +59,13 @@ void setup()
 void loop()
 {
  
-    int pot = analogRead(A0);
-    float pow = scale(pot, 0, 1023, -1, 1);
+    char mfr[HiTechnicController::NUM_MFR_CHARS];
+    mc1.getManufacturer(mfr);
+    Serial.println(mfr);
 
-    someMotor.setPower(pow);
-    Serial.println(someMotor.getPower());
+    char type[HiTechnicController::NUM_SENSOR_TYPE_CHARS];
+    mc1.getSensorType(type);
+    Serial.println(type);
 
     delay(250);
 }
