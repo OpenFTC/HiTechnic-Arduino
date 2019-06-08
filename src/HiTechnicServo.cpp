@@ -24,9 +24,7 @@
 #include "HiTechnicServoController.h"
 
 /*
- * -------------------------------------------------------------------------------
  * Constructor
- * -------------------------------------------------------------------------------
  */
 HiTechnicServo::HiTechnicServo(HiTechnicServoController* controller, HiTechnicServoController::ServoPort port)
 {
@@ -34,23 +32,34 @@ HiTechnicServo::HiTechnicServo(HiTechnicServoController* controller, HiTechnicSe
     this->port = port;
 }
 
-HiTechnicServoController* HiTechnicServo::getController()
-{
-    return controller;
-}
+//--------------------------------------------------------------------------------
+// Position
+//--------------------------------------------------------------------------------
 
 /*
- * -------------------------------------------------------------------------------
- * Position
- * -------------------------------------------------------------------------------
+ * Set the position for this servo
  */
-
 void HiTechnicServo::setPosition(uint8_t pos)
 {
     controller->setServoPosition(port, pos);
 }
 
+/*
+ * Get the last commanded position for this servo
+ */
 uint8_t HiTechnicServo::getPosition()
 {
     controller->getServoPosition(port);
+}
+
+//--------------------------------------------------------------------------------
+// Misc.
+//--------------------------------------------------------------------------------
+
+/*
+ * Get a pointer to the controller this servo is attached to
+ */
+HiTechnicServoController* HiTechnicServo::getController()
+{
+    return controller;
 }
