@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-#include "Arduino.h"
+#include <stdint.h>
 #include "HiTechnicServo.h"
 #include "HiTechnicServoController.h"
 

@@ -19,9 +19,8 @@
  * SOFTWARE.
  */
 
-#include "Arduino.h"
+#include <stdint.h>
 #include "HiTechnicDcMotorController.h"
-#include "Wire.h"
 
 /*
  * -------------------------------------------------------------------------------
@@ -114,7 +113,18 @@ bool HiTechnicDcMotorController::isMotorBusy(MotorPort port)
      * We could actually talk to the hardware, but we replicate what the SDK does
      * Besides, then we don't have to worry about the 50ms issue.
      */
-    return abs(getMotorTargetPosition(port) - getMotorCurrentPosition(port)) > BUSY_THRESHOLD;
+    int32_t err = getMotorTargetPosition(port) - getMotorCurrentPosition(port);
+
+    /*
+     * We don't use Arduino's built-in abs() function so as to be more portable
+     * to other platforms
+     */
+    if(err < 0)
+    {
+        err = -err;
+    }
+     
+    return err > BUSY_THRESHOLD;
 }
 
 void HiTechnicDcMotorController::setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD)
@@ -180,7 +190,8 @@ void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
         //while((read8(REGISTER_MOTOR_1_MODE) & (uint8_t)MOTOR_MODE_MASK_SELECTION) != (uint8_t)mode)
         //    ; //Wait for the mode switch to actually happen
 
-        delay(50); //Not sure how else to do this other than just blindly wait :(
+        //We don't use Arduino's delay() function directly so as to be more portable
+        sleep(50); //Not sure how else to do this other than just blindly wait :(
     }
     else //Port 2
     {
@@ -193,7 +204,8 @@ void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
         //while((read8(REGISTER_MOTOR_2_MODE) & (uint8_t)MOTOR_MODE_MASK_SELECTION) != (uint8_t)mode)
         //    ; //Wait for the mode switch to actually happen
 
-        delay(50); //Not sure how else to do this other than just blindly wait :(
+        //We don't use Arduino's delay() function directly so as to be more portable
+        sleep(50); //Not sure how else to do this other than just blindly wait :(
     }
 }
 

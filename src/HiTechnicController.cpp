@@ -185,3 +185,9 @@ void HiTechnicController::clipSigned8(int8_t* val, int8_t min, int8_t max)
         *val = min;
     }
 }
+
+void HiTechnicController::sleep(uint32_t ms)
+{
+    delay(ms);
+}
+

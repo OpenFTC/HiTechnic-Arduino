@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-#include "Arduino.h"
+#include <stdint.h>
 
 #ifndef HiTechnicController_h
 #define HiTechnicController_h
@@ -43,6 +43,7 @@ class HiTechnicController
         int32_t byteArrayToSigned32bitInt(uint8_t* bytes);
         uint32_t byteArrayToUnsigned32bitInt(uint8_t* bytes);
         void clipSigned8(int8_t* val, int8_t min, int8_t max);
+        void sleep(uint32_t ms);
     
     private:
         uint8_t i2cAddr;

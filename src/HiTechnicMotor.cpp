@@ -19,9 +19,9 @@
  * SOFTWARE.
  */
 
+#include <stdint.h>
 #include "HiTechnicMotor.h"
 #include "HiTechnicDcMotorController.h"
-#include "Arduino.h"
 
 /*
  * -------------------------------------------------------------------------------
