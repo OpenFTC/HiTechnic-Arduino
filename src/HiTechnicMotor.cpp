@@ -24,9 +24,7 @@
 #include "HiTechnicDcMotorController.h"
 
 /*
- * -------------------------------------------------------------------------------
  * Constructor
- * -------------------------------------------------------------------------------
  */
 HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnicDcMotorController::MotorPort port)
 {
@@ -34,17 +32,13 @@ HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnic
     this->port = port;
 }
 
-HiTechnicDcMotorController* HiTechnicMotor::getController()
-{
-    return controller;
-}
+//--------------------------------------------------------------------------------
+// Power
+//--------------------------------------------------------------------------------
 
 /*
- * -------------------------------------------------------------------------------
- * Power
- * -------------------------------------------------------------------------------
+ * Set the power for this motor
  */
-
 void HiTechnicMotor::setPower(int8_t power)
 {
     if(rev) //reverse
@@ -57,6 +51,13 @@ void HiTechnicMotor::setPower(int8_t power)
     }
 }
 
+//--------------------------------------------------------------------------------
+// Encoder
+//--------------------------------------------------------------------------------
+
+/*
+ * Get the encoder value of this motor
+ */
 int32_t HiTechnicMotor::getCurrentPosition()
 {
     if(rev) //reverse
@@ -69,21 +70,29 @@ int32_t HiTechnicMotor::getCurrentPosition()
     }
 }
 
-bool HiTechnicMotor::isBusy()
+//--------------------------------------------------------------------------------
+// Modes and behaviors
+//--------------------------------------------------------------------------------
+
+/*
+ * Set the run mode of this motor
+ */
+void HiTechnicMotor::setRunMode(HiTechnicDcMotorController::RunMode mode)
 {
-    return controller->isMotorBusy(port);
+    controller->setMotorRunMode(port, mode);
 }
 
-void HiTechnicMotor::setTargetPosition(int32_t tPos)
-{
-    controller->setMotorTargetPosition(port, tPos);
-}
-
+/*
+ * Set the zero power behavior of this motor
+ */
 void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b)
 {
     controller->setMotorZeroPowerBehavior(port, b);
 }
 
+/*
+ * Set the direction of this motor
+ */
 void HiTechnicMotor::setDirection(Direction dir)
 {
     if((int)dir) //reverse
@@ -96,39 +105,78 @@ void HiTechnicMotor::setDirection(Direction dir)
     }
 }
 
-/*
- * -------------------------------------------------------------------------------
- * Mode
- * -------------------------------------------------------------------------------
- */
+//--------------------------------------------------------------------------------
+// Functions related to RTP mode
+//-------------------------------------------------------------------------------
 
-void HiTechnicMotor::setRunMode(HiTechnicDcMotorController::RunMode mode)
+/*
+ * Set the encoder value this motor will target in RTP mode
+ */
+void HiTechnicMotor::setTargetPosition(int32_t tPos)
 {
-    controller->setMotorRunMode(port, mode);
+    controller->setMotorTargetPosition(port, tPos);
 }
 
 /*
- * -------------------------------------------------------------------------------
- * PID Control
- * -------------------------------------------------------------------------------
+ * Get the encoder value this motor will target in RTP mode
  */
+int32_t HiTechnicMotor::getTargetPosition()
+{
+    return controller->getMotorTargetPosition(port);
+}
 
-void HiTechnicMotor::setPidCoeffs(uint8_t kP, uint8_t kI, uint8_t kD)
+/*
+ * Find out whether a motor is NOT yet at its target position
+ */
+bool HiTechnicMotor::isBusy()
+{
+    return controller->isMotorBusy(port);
+}
+
+//--------------------------------------------------------------------------------
+// PID params for closed-loop modes
+//--------------------------------------------------------------------------------
+
+/*
+ * Set the PID coefficients for this motor
+ */
+void HiTechnicMotor::setPIDCoeffs(uint8_t kP, uint8_t kI, uint8_t kD)
 {
     controller->setMotorPIDCoeffs(port, kP, kI, kD);
 }
 
+/*
+ * Set only the P coefficient for this motor
+ */
 void HiTechnicMotor::setPCoeff(uint8_t kP)
 {
     controller->setMotorPCoeff(port, kP);
 }
 
+/*
+ * Set only the I coefficient for this motor
+ */
 void HiTechnicMotor::setICoeff(uint8_t kI)
 {
     controller->setMotorPCoeff(port, kI);
 }
 
+/*
+ * Set only the D coefficient for this motor
+ */
 void HiTechnicMotor::setDCoeff(uint8_t kD)
 {
     controller->setMotorPCoeff(port, kD);
+}
+
+//--------------------------------------------------------------------------------
+// Misc.
+//--------------------------------------------------------------------------------
+
+/*
+ * Get a pointer to the controller this motor is attached to
+ */
+HiTechnicDcMotorController* HiTechnicMotor::getController()
+{
+    return controller;
 }

@@ -31,7 +31,7 @@ HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) :
 }
 
 //--------------------------------------------------------------------------------
-// Functions for getting/setting motor power
+// Power
 //--------------------------------------------------------------------------------
 
 /*
@@ -242,7 +242,7 @@ bool HiTechnicDcMotorController::isMotorBusy(MotorPort port)
 }
 
 //--------------------------------------------------------------------------------
-// Functions for setting PID params
+// PID params for closed-loop modes
 //--------------------------------------------------------------------------------
 
 /*
