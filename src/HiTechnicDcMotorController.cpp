@@ -39,17 +39,17 @@ HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) :
  */
 void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
 {
-    clipSigned8(&power1, MIN_MOTOR_POWER, MAX_MOTOR_POWER);
-    clipSigned8(&power2, MIN_MOTOR_POWER, MAX_MOTOR_POWER);
+    clipSigned8(&power1, MOTOR_POWER_MIN, MOTOR_POWER_MAX);
+    clipSigned8(&power2, MOTOR_POWER_MIN, MOTOR_POWER_MAX);
 
     if((power1 == 0) && !m1Brake) //do we need to float?
     {
-        power1 = -128;
+        power1 = MOTOR_POWER_FLOAT;
     }
 
     if((power2 == 0) && !m2Brake) //do we need to float?
     {
-        power2 = -128;
+        power2 = MOTOR_POWER_FLOAT;
     }
     
     int8_t data[2] = {power1, power2};
@@ -61,13 +61,13 @@ void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
  */
 void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
 {
-    clipSigned8(&power, MIN_MOTOR_POWER, MAX_MOTOR_POWER);
+    clipSigned8(&power, MOTOR_POWER_MIN, MOTOR_POWER_MAX);
     
     if(!(int)port) //Port 1
     {
         if((power == 0) && !m1Brake) //do we need to float?
         {
-           power = -128;
+           power = MOTOR_POWER_FLOAT;
         }
         
         write8(REGISTER_MOTOR_1_POWER, power);
@@ -76,7 +76,7 @@ void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
     {
         if((power == 0) && !m2Brake) //do we need to float?
         {
-           power = -128;
+           power = MOTOR_POWER_FLOAT;
         }
         
         write8(REGISTER_MOTOR_2_POWER, power);

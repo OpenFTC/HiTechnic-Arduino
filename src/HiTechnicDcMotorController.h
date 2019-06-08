@@ -61,8 +61,9 @@ class HiTechnicDcMotorController : public HiTechnicController
         static const uint8_t REGISTER_MOTOR_2_MODE = 0x47;
         static const uint8_t MOTOR_MODE_MASK_SELECTION = 0x03;
         static const uint8_t NTO_BIT = 0x10;
-        static const uint8_t MIN_MOTOR_POWER = -100;
-        static const uint8_t MAX_MOTOR_POWER = 100;
+        static const uint8_t MOTOR_POWER_MIN = -100;
+        static const uint8_t MOTOR_POWER_MAX = 100;
+        static const uint8_t MOTOR_POWER_FLOAT = -128;
         static const uint8_t REGISTER_MOTOR_1_ENC_HIGH_BYTE = 0x4C;
         static const uint8_t REGISTER_MOTOR_2_ENC_HIGH_BYTE = 0x50;
         static const uint8_t REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE = 0x40;
