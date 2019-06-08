@@ -56,6 +56,14 @@ void HiTechnicMotor::setPower(float power)
     }
 }
 
+/*
+ * Get the current power of this motor
+ */
+float HiTechnicMotor::getPower()
+{
+    return controller->getMotorPower(port);
+}
+
 //--------------------------------------------------------------------------------
 // Encoder
 //--------------------------------------------------------------------------------

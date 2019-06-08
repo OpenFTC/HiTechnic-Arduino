@@ -46,41 +46,23 @@ void setup()
     
     sc1.enablePwm(false); //enable without disabling the timeout
 
-    someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
-    someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::RUN_WITHOUT_ENCODER);
-    someMotor2.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::BRAKE);
-    someMotor2.setDirection(HiTechnicMotor::Direction::REVERSE);
-    someMotor2.setPower(0);
-    someMotor2.setTargetPosition(4634);
-    someMotor2.getController()->setTimeoutEnabled(false);
+    someMotor.setRunMode(HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
+    someMotor.setRunMode(HiTechnicDcMotorController::RunMode::RUN_WITHOUT_ENCODER);
+    someMotor.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::BRAKE);
+    someMotor.setDirection(HiTechnicMotor::Direction::REVERSE);
+    someMotor.setPower(0);
+    someMotor.setTargetPosition(4634);
+    someMotor.getController()->setTimeoutEnabled(false);
 }
 
 void loop()
 {
  
-    /*int pot = analogRead(A0);
-
-    uint32_t iT = millis();
-
-    float pos = scale(pot, 0, 1023, 0, 1);
+    int pot = analogRead(A0);
     float pow = scale(pot, 0, 1023, -1, 1);
 
-    someServo.setPosition(pos);
-   
-
-    Serial.println(someServo.getPosition());*/
-
-    uint8_t pid[3];
-
-    someMotor2.getPIDCoeffs(pid);
-
-    Serial.print("PID Coeffs: ");
-    Serial.print(pid[0]);
-    Serial.print(", ");
-    Serial.print(pid[1]);
-    Serial.print(", ");
-    Serial.print(pid[2]);
-    Serial.println();
+    someMotor.setPower(pow);
+    Serial.println(someMotor.getPower());
 
     delay(250);
 }

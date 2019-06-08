@@ -67,6 +67,29 @@ void HiTechnicDcMotorController::setMotorPower(MotorPort port, float power)
     }
 }
 
+/*
+ * Get the current power of a motor
+ */
+float HiTechnicDcMotorController::getMotorPower(MotorPort port)
+{
+    int8_t pow;
+  
+    if(!(int)port) //Port 1
+    {
+        pow = read8(REGISTER_MOTOR_1_POWER);
+    }
+    else //Port 2
+    {
+        pow = read8(REGISTER_MOTOR_2_POWER);
+    }
+
+    /*
+     * Convert from integer -100 to 100 
+     * to floating point -1 to 1
+     */
+    return pow / 100.0;
+}
+
 //--------------------------------------------------------------------------------
 // Encoder
 //--------------------------------------------------------------------------------

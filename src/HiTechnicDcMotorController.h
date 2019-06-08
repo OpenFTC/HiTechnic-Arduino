@@ -33,6 +33,7 @@ class HiTechnicDcMotorController : public HiTechnicController
         enum class ZeroPowerBehavior {FLOAT = 0, BRAKE};
         enum class MotorPort {MOTOR_PORT_1 = 0, MOTOR_PORT_2};
         void setMotorPower(MotorPort port, float power);
+        float getMotorPower(MotorPort port);
         void setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD);
         void getMotorPIDCoeffs(MotorPort port, uint8_t* out);
         void setMotorRunMode(MotorPort port, RunMode mode);

@@ -57,8 +57,11 @@ void HiTechnicServoController::setServoPosition(ServoPort port, float pos)
  * Get the last commanded position of a servo
  */
 float HiTechnicServoController::getServoPosition(ServoPort port)
-{
+{ 
     /*
+     * One would think we could just read the servo position
+     * registers. But they always report as zero.
+     * 
      * Convert from integer 0 to 255 
      * to floating point 0 to 1
      */

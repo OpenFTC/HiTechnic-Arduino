@@ -31,6 +31,7 @@ class HiTechnicMotor
         HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnicDcMotorController::MotorPort port);
         enum class Direction {FORWARD = 0, REVERSE};
         void setPower(float power);
+        float getPower();
         void setPIDCoeffs(uint8_t kP, uint8_t kI, uint8_t kD);
         void getPIDCoeffs(uint8_t* out);
         void setRunMode(HiTechnicDcMotorController::RunMode mode);
