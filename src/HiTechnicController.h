@@ -34,14 +34,13 @@ class HiTechnicController
 
     protected:
         void write8(uint8_t reg, uint8_t val);
-        void writeSigned32(uint8_t reg, int32_t data);
+        void write32(uint8_t reg, uint32_t data);
         void writeMultiple(uint8_t reg, uint8_t data[], uint8_t len);
         uint8_t read8(uint8_t reg);
         void readMultiple(uint8_t reg, uint8_t num, uint8_t* out);
-        int32_t readSigned32(uint8_t reg);
-        uint32_t readUnsigned32(uint8_t reg);
-        int32_t byteArrayToSigned32bitInt(uint8_t* bytes);
-        uint32_t byteArrayToUnsigned32bitInt(uint8_t* bytes);
+        uint32_t read32(uint8_t reg);
+        uint32_t byteArrayToInt32(uint8_t* bytes);
+        void int32ToByteArray(uint32_t theInt, uint8_t* out);
         void clipSigned8(int8_t* val, int8_t min, int8_t max);
         void sleep(uint32_t ms);
     

@@ -52,6 +52,8 @@ void HiTechnicController::getSensorType(uint8_t* out)
 //--------------------------------------------------------------------------------
 
 /*
+ *   ===  HARDWARE SPECIFIC  ===
+ * 
  * Write a single byte to a given register
  */
 void HiTechnicController::write8(uint8_t reg, uint8_t val)
@@ -63,6 +65,8 @@ void HiTechnicController::write8(uint8_t reg, uint8_t val)
 }
 
 /*
+ *    ===  HARDWARE SPECIFIC  ===
+ * 
  * Write multiple bytes, starting from a given register
  */
 void HiTechnicController::writeMultiple(uint8_t reg, uint8_t data[], uint8_t len)
@@ -73,17 +77,14 @@ void HiTechnicController::writeMultiple(uint8_t reg, uint8_t data[], uint8_t len
     Wire.endTransmission();
 }
 
-void HiTechnicController::writeSigned32(uint8_t reg, int32_t data)
+/*
+ * Write a 32-bit integer, starting at a given register
+ */
+void HiTechnicController::write32(uint8_t reg, uint32_t data)
 {
-    Wire.beginTransmission(i2cAddr);
-    Wire.write(reg);
-    
-    Wire.write(uint8_t(data >> 24));
-    Wire.write(uint8_t(data >> 16)); 
-    Wire.write(uint8_t(data >> 8));
-    Wire.write(uint8_t(data));
-    
-    Wire.endTransmission();
+    uint8_t bytes[4];
+    int32ToByteArray(data, bytes);
+    writeMultiple(reg, bytes, 4);
 }
 
 //--------------------------------------------------------------------------------
@@ -91,6 +92,8 @@ void HiTechnicController::writeSigned32(uint8_t reg, int32_t data)
 //--------------------------------------------------------------------------------
 
 /*
+ *    ===  HARDWARE SPECIFIC  ===
+ * 
  * Read a single byte from a given register
  */
 uint8_t HiTechnicController::read8(uint8_t reg)
@@ -104,6 +107,8 @@ uint8_t HiTechnicController::read8(uint8_t reg)
 }
 
 /*
+ *    ===  HARDWARE SPECIFIC  ===
+ *    
  * Read multiple bytes, starting from a given register
  */
 void HiTechnicController::readMultiple(uint8_t reg, uint8_t num, uint8_t* out)
@@ -121,23 +126,13 @@ void HiTechnicController::readMultiple(uint8_t reg, uint8_t num, uint8_t* out)
 }
 
 /*
- * Read a signed integer, starting from a given register
+ * Read a 32-bit integer, starting from a given register
  */
-int32_t HiTechnicController::readSigned32(uint8_t reg)
+uint32_t HiTechnicController::read32(uint8_t reg)
 {
     uint8_t bytes[4];
     readMultiple(reg, 4, bytes);
-    return byteArrayToSigned32bitInt(bytes);
-}
-
-/*
- * Read an unsigned integer, starting from a given register
- */
-uint32_t HiTechnicController::readUnsigned32(uint8_t reg)
-{
-    uint8_t bytes[4];
-    readMultiple(reg, 4, bytes);
-    return byteArrayToUnsigned32bitInt(bytes);
+    return byteArrayToInt32(bytes);
 }
 
 //--------------------------------------------------------------------------------
@@ -145,24 +140,9 @@ uint32_t HiTechnicController::readUnsigned32(uint8_t reg)
 //--------------------------------------------------------------------------------
 
 /*
- * Convert a 4-element byte array into a signed integer
+ * Convert a 4-element byte array into a 32-bit integer
  */
-int32_t HiTechnicController::byteArrayToSigned32bitInt(uint8_t* bytes)
-{
-    int32_t i = 0;
-    
-    i |= bytes[0] << 24;
-    i |= bytes[1] << 16;
-    i |= bytes[2] << 8;
-    i |= bytes[3];
-
-    return i;
-}
-
-/*
- * Convert a 4-element byte array into an unsigned integer
- */
-uint32_t HiTechnicController::byteArrayToUnsigned32bitInt(uint8_t* bytes)
+uint32_t HiTechnicController::byteArrayToInt32(uint8_t* bytes)
 {
     uint32_t i = 0;
     
@@ -174,6 +154,20 @@ uint32_t HiTechnicController::byteArrayToUnsigned32bitInt(uint8_t* bytes)
     return i;
 }
 
+/*
+ * Convert a 32-bit integer into a 4-element byte array
+ */
+void HiTechnicController::int32ToByteArray(uint32_t theInt, uint8_t* out)
+{
+    out[0] = theInt >> 24;
+    out[1] = theInt >> 16;
+    out[2] = theInt >> 8;
+    out[3] = theInt;
+}
+
+/*
+ * Clip a signed 8-bit integer to minimum and maximum bound
+ */
 void HiTechnicController::clipSigned8(int8_t* val, int8_t min, int8_t max)
 {
     if(*val > max)
@@ -186,6 +180,11 @@ void HiTechnicController::clipSigned8(int8_t* val, int8_t min, int8_t max)
     }
 }
 
+/*
+ *    ===  HARDWARE SPECIFIC  ==
+ *    
+ * Sleeps for a set amount of milliseconds
+ */
 void HiTechnicController::sleep(uint32_t ms)
 {
     delay(ms);

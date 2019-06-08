@@ -87,11 +87,11 @@ void HiTechnicDcMotorController::setMotorTargetPosition(MotorPort port, int32_t 
 {
     if(!(int)port) //Port 1
     {
-        writeSigned32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE, tPos);
+        write32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE, tPos);
     }
     else //Port 2
     {
-        writeSigned32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE, tPos);
+        write32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE, tPos);
     }
 }
 
@@ -99,11 +99,11 @@ int32_t HiTechnicDcMotorController::getMotorTargetPosition(MotorPort port)
 {
     if(!(int)port) //Port 1
     {
-        return readSigned32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE);
+        return read32(REGISTER_MOTOR_1_TARGET_POSITION_HIGH_BYTE);
     }
     else //Port 2
     {
-        return readSigned32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE);
+        return read32(REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE);
     }
 }
 
@@ -213,11 +213,11 @@ int32_t HiTechnicDcMotorController::getMotorCurrentPosition(MotorPort port)
 {
     if(!(int)port) //Port 1
     {
-        return readSigned32(REGISTER_MOTOR_1_ENC_HIGH_BYTE);
+        return read32(REGISTER_MOTOR_1_ENC_HIGH_BYTE);
     }
     else //Port 2
     {
-        return readSigned32(REGISTER_MOTOR_2_ENC_HIGH_BYTE);
+        return read32(REGISTER_MOTOR_2_ENC_HIGH_BYTE);
     }
 }
 
