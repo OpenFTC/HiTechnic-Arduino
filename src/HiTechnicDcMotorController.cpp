@@ -245,47 +245,17 @@ void HiTechnicDcMotorController::setMotorPIDCoeffs(MotorPort port, uint8_t kP, u
 }
 
 /*
- * Set only the P coefficient for a motor
+ * Get the current PID coefficients for a motor
  */
-void HiTechnicDcMotorController::setMotorPCoeff(MotorPort port, uint8_t kP)
+void HiTechnicDcMotorController::getMotorPIDCoeffs(MotorPort port, uint8_t* out)
 {
     if(!(int)port) //Port 1
     {
-        write8(REGISTER_MOTOR_1_P_COEFF, kP);
+        readMultiple(REGISTER_MOTOR_1_P_COEFF, 3, out);
     }
     else //Port 2
     {
-        write8(REGISTER_MOTOR_2_P_COEFF, kP);
-    }
-}
-
-/*
- * Set only the I coefficient for a motor
- */
-void HiTechnicDcMotorController::setMotorICoeff(MotorPort port, uint8_t kI)
-{
-    if(!(int)port) //Port 1
-    {
-        write8(REGISTER_MOTOR_1_I_COEFF, kI);
-    }
-    else //Port 2
-    {
-        write8(REGISTER_MOTOR_2_I_COEFF, kI);
-    }
-}
-
-/*
- * Set only the D coefficient for a motor
- */
-void HiTechnicDcMotorController::setMotorDCoeff(MotorPort port, uint8_t kD)
-{
-    if(!(int)port) //Port 1
-    {
-        write8(REGISTER_MOTOR_1_D_COEFF, kD);
-    }
-    else //Port 2
-    {
-        write8(REGISTER_MOTOR_2_D_COEFF, kD);
+        readMultiple(REGISTER_MOTOR_2_P_COEFF, 3, out);
     }
 }
 

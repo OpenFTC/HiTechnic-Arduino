@@ -146,27 +146,11 @@ void HiTechnicMotor::setPIDCoeffs(uint8_t kP, uint8_t kI, uint8_t kD)
 }
 
 /*
- * Set only the P coefficient for this motor
+ * Get the current PID coefficients for this motor
  */
-void HiTechnicMotor::setPCoeff(uint8_t kP)
+void HiTechnicMotor::getPIDCoeffs(uint8_t* out)
 {
-    controller->setMotorPCoeff(port, kP);
-}
-
-/*
- * Set only the I coefficient for this motor
- */
-void HiTechnicMotor::setICoeff(uint8_t kI)
-{
-    controller->setMotorPCoeff(port, kI);
-}
-
-/*
- * Set only the D coefficient for this motor
- */
-void HiTechnicMotor::setDCoeff(uint8_t kD)
-{
-    controller->setMotorPCoeff(port, kD);
+    controller->getMotorPIDCoeffs(port, out);
 }
 
 //--------------------------------------------------------------------------------

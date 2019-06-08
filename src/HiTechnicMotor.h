@@ -32,9 +32,7 @@ class HiTechnicMotor
         enum class Direction {FORWARD = 0, REVERSE};
         void setPower(float power);
         void setPIDCoeffs(uint8_t kP, uint8_t kI, uint8_t kD);
-        void setPCoeff(uint8_t kP);
-        void setICoeff(uint8_t kI);
-        void setDCoeff(uint8_t kD);
+        void getPIDCoeffs(uint8_t* out);
         void setRunMode(HiTechnicDcMotorController::RunMode mode);
         void setTargetPosition(int32_t tPos);
         int32_t getTargetPosition();

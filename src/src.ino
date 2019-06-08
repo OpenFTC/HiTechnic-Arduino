@@ -30,7 +30,7 @@
 
 HiTechnicDcMotorController mc1(HiTechnicController::DAISY_CHAIN_POSITION_SECOND);
 HiTechnicMotor someMotor(&mc1, HiTechnicDcMotorController::MotorPort::MOTOR_PORT_1);
-HiTechnicMotor someMotor2(&mc1, HiTechnicDcMotorController::MotorPort::MOTOR_PORT_1);
+HiTechnicMotor someMotor2(&mc1, HiTechnicDcMotorController::MotorPort::MOTOR_PORT_2);
 
 HiTechnicServoController sc1(HiTechnicController::DAISY_CHAIN_POSITION_FIRST);
 HiTechnicServo someServo(&sc1, HiTechnicServoController::SERVO_PORT_2);
@@ -58,7 +58,7 @@ void setup()
 void loop()
 {
  
-    int pot = analogRead(A0);
+    /*int pot = analogRead(A0);
 
     uint32_t iT = millis();
 
@@ -68,9 +68,21 @@ void loop()
     someServo.setPosition(pos);
    
 
-    Serial.println(someServo.getPosition());
+    Serial.println(someServo.getPosition());*/
 
-    delay(40);
+    uint8_t pid[3];
+
+    someMotor2.getPIDCoeffs(pid);
+
+    Serial.print("PID Coeffs: ");
+    Serial.print(pid[0]);
+    Serial.print(", ");
+    Serial.print(pid[1]);
+    Serial.print(", ");
+    Serial.print(pid[2]);
+    Serial.println();
+
+    delay(250);
 }
 
 float scale(float n, float x1, float x2, float y1, float y2) {
