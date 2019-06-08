@@ -266,7 +266,7 @@ void HiTechnicDcMotorController::getMotorPIDCoeffs(MotorPort port, uint8_t* out)
 /*
  * Get the battery voltage in millivolts
  */
-uint16_t HiTechnicDcMotorController::getBatteryVoltage()
+uint16_t HiTechnicDcMotorController::getBatteryVoltageMillivolts()
 {
     uint16_t voltage = 0;
 
@@ -274,16 +274,16 @@ uint16_t HiTechnicDcMotorController::getBatteryVoltage()
 
     readMultiple(REGISTER_BATTERY_VOLTAGE_HIGH_BYTE, 2, bytes);
 
-    voltage |= bytes[0] << 2;
+    voltage |= bytes[0] << NUM_SIGNIFICANT_BITS_BATTERY_VOLTAGE_LOW_BYTE;
     voltage |= bytes[1];
     
-    return voltage*20;
+    return voltage * BATTERY_VOLTAGE_12_BIT_RESOLUTION_MV;
 }
 
 /*
  * Get the battery voltage as a floating-point value in volts
  */
-float HiTechnicDcMotorController::getBatteryVoltageFloat()
+float HiTechnicDcMotorController::getBatteryVoltage()
 {
-    return getBatteryVoltage() / 1000.0;
+    return getBatteryVoltageMillivolts() / 1000.0;
 }

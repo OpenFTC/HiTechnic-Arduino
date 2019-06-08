@@ -41,8 +41,8 @@ class HiTechnicDcMotorController : public HiTechnicController
         void setMotorTargetPosition(MotorPort port, int32_t tPos);
         int32_t getMotorTargetPosition(MotorPort port);
         bool isMotorBusy(MotorPort port);
-        uint16_t getBatteryVoltage();
-        float getBatteryVoltageFloat();
+        uint16_t getBatteryVoltageMillivolts();
+        float getBatteryVoltage();
         void setTimeoutEnabled(bool timeoutEnabled);
 
     private:
@@ -67,6 +67,8 @@ class HiTechnicDcMotorController : public HiTechnicController
         static const uint8_t REGISTER_MOTOR_2_TARGET_POSITION_HIGH_BYTE = 0x48;
         static const uint8_t BUSY_THRESHOLD = 5; //per SDK
         static const uint8_t REGISTER_BATTERY_VOLTAGE_HIGH_BYTE = 0x54;
+        static const uint8_t NUM_SIGNIFICANT_BITS_BATTERY_VOLTAGE_LOW_BYTE = 2;
+        static const uint8_t BATTERY_VOLTAGE_12_BIT_RESOLUTION_MV = 20;
         static const uint8_t REGISTER_MOTOR_1_P_COEFF = 0x57;
         static const uint8_t REGISTER_MOTOR_1_I_COEFF = 0x58;
         static const uint8_t REGISTER_MOTOR_1_D_COEFF = 0x59;

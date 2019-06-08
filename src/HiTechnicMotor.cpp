@@ -41,6 +41,11 @@ HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnic
  */
 void HiTechnicMotor::setPower(float power)
 {
+    /*
+     * NB: We handle the direction in software,
+     * just like the SDK does
+     */
+  
     if(rev) //reverse
     {
         controller->setMotorPower(port, -power);
@@ -60,6 +65,11 @@ void HiTechnicMotor::setPower(float power)
  */
 int32_t HiTechnicMotor::getCurrentPosition()
 {
+    /*
+     * NB: We handle the direction in software,
+     * just like the SDK does
+     */
+  
     if(rev) //reverse
     {
         return -(controller->getMotorCurrentPosition(port));
@@ -95,6 +105,11 @@ void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerB
  */
 void HiTechnicMotor::setDirection(Direction dir)
 {
+    /*
+     * NB: We handle the direction in software,
+     * just like the SDK does
+     */
+  
     if((int)dir) //reverse
     {
         rev = true;
