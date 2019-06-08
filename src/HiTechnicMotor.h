@@ -30,7 +30,7 @@ class HiTechnicMotor
     public:
         HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnicDcMotorController::MotorPort port);
         enum class Direction {FORWARD = 0, REVERSE};
-        void setPower(int8_t power);
+        void setPower(float power);
         void setPIDCoeffs(uint8_t kP, uint8_t kI, uint8_t kD);
         void setPCoeff(uint8_t kP);
         void setICoeff(uint8_t kI);

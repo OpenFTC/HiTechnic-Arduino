@@ -30,14 +30,14 @@
 
 HiTechnicDcMotorController mc1(HiTechnicController::DAISY_CHAIN_POSITION_SECOND);
 HiTechnicMotor someMotor(&mc1, HiTechnicDcMotorController::MotorPort::MOTOR_PORT_1);
-HiTechnicMotor someMotor2(&mc1, HiTechnicDcMotorController::MotorPort::MOTOR_PORT_2);
+HiTechnicMotor someMotor2(&mc1, HiTechnicDcMotorController::MotorPort::MOTOR_PORT_1);
 
 HiTechnicServoController sc1(HiTechnicController::DAISY_CHAIN_POSITION_FIRST);
-HiTechnicServo someServo(&sc1, HiTechnicServoController::SERVO_PORT_1);
+HiTechnicServo someServo(&sc1, HiTechnicServoController::SERVO_PORT_2);
 
 void setup()
 {
-    Serial.begin(9600); //set up serial
+    Serial.begin(115200); //set up serial
     while(!Serial);
 
     Serial.println("\nHello");
@@ -47,22 +47,34 @@ void setup()
     sc1.enablePwm(false); //enable without disabling the timeout
 
     someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
-    someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::RUN_USING_ENCODER);
-    someMotor2.setDirection(HiTechnicMotor::Direction::FORWARD);
-    someMotor2.setPower(20);
+    someMotor2.setRunMode(HiTechnicDcMotorController::RunMode::RUN_WITHOUT_ENCODER);
+    someMotor2.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::BRAKE);
+    someMotor2.setDirection(HiTechnicMotor::Direction::REVERSE);
+    someMotor2.setPower(0);
+    someMotor2.setTargetPosition(4634);
     someMotor2.getController()->setTimeoutEnabled(false);
 }
 
 void loop()
 {
-    //Serial.print("Voltage: ");
-    //Serial.println(mc1.getBatteryVoltageFloat());
+ 
+    int pot = analogRead(A0);
 
-    //someMotor2.setPower(5);
+    uint32_t iT = millis();
 
-    /*Serial.print("Enc1: ");
-    Serial.println(someMotor2.getCurrentPosition());
-    Serial.print("Busy: ");
-    Serial.println(someMotor2.isBusy());*/
-    delay(250);
+    float pos = scale(pot, 0, 1023, 0, 1);
+    float pow = scale(pot, 0, 1023, -1, 1);
+
+    someServo.setPosition(pos);
+   
+
+    Serial.println(someServo.getPosition());
+
+    delay(40);
+}
+
+float scale(float n, float x1, float x2, float y1, float y2) {
+        double a = (y1 - y2) / (x1 - x2);
+        double b = y1 - x1 * (y1 - y2) / (x1 - x2);
+        return a * n + b;
 }

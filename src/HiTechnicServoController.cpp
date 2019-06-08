@@ -37,20 +37,32 @@ HiTechnicServoController::HiTechnicServoController(DaisyChainPosition pos) : HiT
 /*
  * Set the position for a servo
  */
-void HiTechnicServoController::setServoPosition(ServoPort port, uint8_t pos)
+void HiTechnicServoController::setServoPosition(ServoPort port, float pos)
 {
-    //Rather than a switch statement, just offset from the base mem addr
-    write8(REGISTER_SERVO_1_POS + (int)port, pos);
+    clipFloat(&pos, API_SERVO_POS_MIN, API_SERVO_POS_MAX);
 
-    commandedPositions[port] = pos;
+    /*
+     * Convert from floating point 0 to 1
+     * to integer 0 to 255
+     */
+    uint8_t scaledPos = pos * 255.0;
+  
+    //Rather than a switch statement, just offset from the base mem addr
+    write8(REGISTER_SERVO_1_POS + (int)port, scaledPos);
+
+    commandedPositions[port] = scaledPos;
 }
 
 /*
  * Get the last commanded position of a servo
  */
-uint8_t HiTechnicServoController::getServoPosition(ServoPort port)
+float HiTechnicServoController::getServoPosition(ServoPort port)
 {
-    return commandedPositions[port];
+    /*
+     * Convert from integer 0 to 255 
+     * to floating point 0 to 1
+     */
+    return commandedPositions[port] / 255.0;
 }
 
 //--------------------------------------------------------------------------------

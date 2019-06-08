@@ -32,8 +32,7 @@ class HiTechnicDcMotorController : public HiTechnicController
         enum class RunMode {RUN_WITHOUT_ENCODER = 0x00, RUN_USING_ENCODER = 0x01, RUN_TO_POSITION = 0x02, STOP_AND_RESET_ENCODER = 0x03};
         enum class ZeroPowerBehavior {FLOAT = 0, BRAKE};
         enum class MotorPort {MOTOR_PORT_1 = 0, MOTOR_PORT_2};
-        void setMotorPowers(int8_t power1, int8_t power2);
-        void setMotorPower(MotorPort port, int8_t power);
+        void setMotorPower(MotorPort port, float power);
         void setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD);
         void setMotorPCoeff(MotorPort port, uint8_t kP);
         void setMotorICoeff(MotorPort port, uint8_t kI);
@@ -61,8 +60,8 @@ class HiTechnicDcMotorController : public HiTechnicController
         static const uint8_t REGISTER_MOTOR_2_MODE = 0x47;
         static const uint8_t MOTOR_MODE_MASK_SELECTION = 0x03;
         static const uint8_t NTO_BIT = 0x10;
-        static const uint8_t MOTOR_POWER_MIN = -100;
-        static const uint8_t MOTOR_POWER_MAX = 100;
+        static const float API_MOTOR_POWER_MIN = -1;
+        static const float API_MOTOR_POWER_MAX = 1;
         static const uint8_t MOTOR_POWER_FLOAT = -128;
         static const uint8_t REGISTER_MOTOR_1_ENC_HIGH_BYTE = 0x4C;
         static const uint8_t REGISTER_MOTOR_2_ENC_HIGH_BYTE = 0x50;

@@ -30,8 +30,8 @@ class HiTechnicServo
     public:
         HiTechnicServo(HiTechnicServoController* controller, HiTechnicServoController::ServoPort port);
         HiTechnicServoController* getController();
-        void setPosition(uint8_t pos);
-        uint8_t getPosition();
+        void setPosition(float pos);
+        float getPosition();
 
     private:
         HiTechnicServoController* controller;

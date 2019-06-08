@@ -39,7 +39,7 @@ HiTechnicServo::HiTechnicServo(HiTechnicServoController* controller, HiTechnicSe
 /*
  * Set the position for this servo
  */
-void HiTechnicServo::setPosition(uint8_t pos)
+void HiTechnicServo::setPosition(float pos)
 {
     controller->setServoPosition(port, pos);
 }
@@ -47,9 +47,9 @@ void HiTechnicServo::setPosition(uint8_t pos)
 /*
  * Get the last commanded position for this servo
  */
-uint8_t HiTechnicServo::getPosition()
+float HiTechnicServo::getPosition()
 {
-    controller->getServoPosition(port);
+    return controller->getServoPosition(port);
 }
 
 //--------------------------------------------------------------------------------

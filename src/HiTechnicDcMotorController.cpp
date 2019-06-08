@@ -35,35 +35,17 @@ HiTechnicDcMotorController::HiTechnicDcMotorController(DaisyChainPosition pos) :
 //--------------------------------------------------------------------------------
 
 /*
- * Set the power for both motors at the same time;
- * saves bus time over calling setMotorPower() twice,
- * once for each motor
- */
-void HiTechnicDcMotorController::setMotorPowers(int8_t power1, int8_t power2)
-{
-    clipSigned8(&power1, MOTOR_POWER_MIN, MOTOR_POWER_MAX);
-    clipSigned8(&power2, MOTOR_POWER_MIN, MOTOR_POWER_MAX);
-
-    if((power1 == 0) && !m1Brake) //do we need to float?
-    {
-        power1 = MOTOR_POWER_FLOAT;
-    }
-
-    if((power2 == 0) && !m2Brake) //do we need to float?
-    {
-        power2 = MOTOR_POWER_FLOAT;
-    }
-    
-    int8_t data[2] = {power1, power2};
-    writeMultiple(REGISTER_MOTOR_1_POWER, data, 2);
-}
-
-/*
  * Set the power for a motor
  */
-void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
+void HiTechnicDcMotorController::setMotorPower(MotorPort port, float power)
 {
-    clipSigned8(&power, MOTOR_POWER_MIN, MOTOR_POWER_MAX);
+    clipFloat(&power, API_MOTOR_POWER_MIN, API_MOTOR_POWER_MAX);
+
+    /*
+     * Convert from floating point -1 to 1
+     * to integer -100 to 100
+     */
+    int8_t scaledPower = power * 100.0;
     
     if(!(int)port) //Port 1
     {
@@ -72,7 +54,7 @@ void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
            power = MOTOR_POWER_FLOAT;
         }
         
-        write8(REGISTER_MOTOR_1_POWER, power);
+        write8(REGISTER_MOTOR_1_POWER, scaledPower);
     }
     else //Port 2
     {
@@ -81,7 +63,7 @@ void HiTechnicDcMotorController::setMotorPower(MotorPort port, int8_t power)
            power = MOTOR_POWER_FLOAT;
         }
         
-        write8(REGISTER_MOTOR_2_POWER, power);
+        write8(REGISTER_MOTOR_2_POWER, scaledPower);
     }
 }
 

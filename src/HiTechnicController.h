@@ -42,6 +42,7 @@ class HiTechnicController
         uint32_t byteArrayToInt32(uint8_t* bytes);
         void int32ToByteArray(uint32_t theInt, uint8_t* out);
         void clipSigned8(int8_t* val, int8_t min, int8_t max);
+        void clipFloat(float* val, float min, float max);
         void sleep(uint32_t ms);
     
     private:

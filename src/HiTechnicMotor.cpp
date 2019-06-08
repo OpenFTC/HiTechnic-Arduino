@@ -39,7 +39,7 @@ HiTechnicMotor::HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnic
 /*
  * Set the power for this motor
  */
-void HiTechnicMotor::setPower(int8_t power)
+void HiTechnicMotor::setPower(float power)
 {
     if(rev) //reverse
     {

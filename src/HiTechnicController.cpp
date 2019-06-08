@@ -181,6 +181,21 @@ void HiTechnicController::clipSigned8(int8_t* val, int8_t min, int8_t max)
 }
 
 /*
+ * Clip a floating point number to a minimum and maximum bound
+ */
+void HiTechnicController::clipFloat(float* val, float min, float max)
+{
+    if(*val > max)
+    {
+        *val = max;
+    }
+    else if(*val < min)
+    {
+        *val = min;
+    }
+}
+
+/*
  *    ===  HARDWARE SPECIFIC  ==
  *    
  * Sleeps for a set amount of milliseconds
