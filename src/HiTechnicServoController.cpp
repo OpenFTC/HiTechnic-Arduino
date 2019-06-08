@@ -23,15 +23,20 @@
 #include "HiTechnicServoController.h"
 
 /*
- * -------------------------------------------------------------------------------
  * Constructor
- * -------------------------------------------------------------------------------
  */
 HiTechnicServoController::HiTechnicServoController(DaisyChainPosition pos) : HiTechnicController(pos)
 {
     /* Nothing to see here, move along :P */
 }
 
+//--------------------------------------------------------------------------------
+// Position
+//--------------------------------------------------------------------------------
+
+/*
+ * Set the position for a servo
+ */
 void HiTechnicServoController::setServoPosition(ServoPort port, uint8_t pos)
 {
     //Rather than a switch statement, just offset from the base mem addr
@@ -40,11 +45,22 @@ void HiTechnicServoController::setServoPosition(ServoPort port, uint8_t pos)
     commandedPositions[port] = pos;
 }
 
+/*
+ * Get the last commanded position of a servo
+ */
 uint8_t HiTechnicServoController::getServoPosition(ServoPort port)
 {
     return commandedPositions[port];
 }
 
+//--------------------------------------------------------------------------------
+// Enable / disable PWM
+//--------------------------------------------------------------------------------
+
+/*
+ * Enable the servos
+ * Parameter 'noTimeout' enables or disables 10-second no-comms timeout
+ */
 void HiTechnicServoController::enablePwm(bool noTimeout)
 {
     if(noTimeout)
@@ -57,11 +73,21 @@ void HiTechnicServoController::enablePwm(bool noTimeout)
     }
 }
 
+/*
+ * Disable the servos
+ */
 void HiTechnicServoController::disablePwm()
 {
      write8(REGISTER_ENABLE_PWM, PWM_DISABLED);
 }
 
+//--------------------------------------------------------------------------------
+// Misc
+//--------------------------------------------------------------------------------
+
+/*
+ * Sets the step time
+ */
 void HiTechnicServoController::setStepTime(uint8_t t)
 {
     clipSigned8(&t, 0, 15);
