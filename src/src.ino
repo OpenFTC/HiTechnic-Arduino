@@ -38,7 +38,7 @@ HiTechnicServo someServo(&sc1, HiTechnicServoController::SERVO_PORT_2);
 
 void setup()
 {
-    Serial.begin(115200); //set up serial
+    Serial.begin(9600); //set up serial
     while(!Serial);
 
     Serial.println("\nHello");
@@ -48,21 +48,67 @@ void setup()
     sc1.enablePwm(false); //enable without disabling the timeout
 
     someMotor.setRunMode(HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
-    someMotor.setRunMode(HiTechnicDcMotorController::RunMode::RUN_WITHOUT_ENCODER);
-    someMotor.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::BRAKE);
+    someMotor.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::FLOAT);
     someMotor.setDirection(HiTechnicMotor::Direction::FORWARD);
     someMotor.setPower(0);
-    someMotor.setTargetPosition(4634);
-    someMotor.getController()->setTimeoutEnabled(false);
+    someMotor.getController()->setTimeoutEnabled(true);
+
+    delay(1000);
 }
 
 void loop()
 {
-    someMotor.setPower(scale(analogRead(A0), 0, 1023, -1, 1));
-    int32_t enc = someMotor.getCurrentPosition();
-    Serial.println(enc);
+    someMotor.setRunMode(HiTechnicDcMotorController::RunMode::RUN_WITHOUT_ENCODER);
+    delay(500);
 
-    delay(250);
+    Serial.println("Open loop");
+  
+    for(float f = 0; f < 1; f += 0.01)
+    {
+        //Serial.println(f);
+        someMotor.setPower(f);
+        dataLog();
+        delay(50);
+    }
+
+    //----------------------------------------------------------------------------
+
+    someMotor.setPower(0);
+    delay(1000);
+    someMotor.setRunMode(HiTechnicDcMotorController::RunMode::RUN_USING_ENCODER);
+
+    Serial.println("Closed loop");
+  
+    for(float f = 0; f < 1; f += 0.01)
+    {
+        //Serial.println(f);
+        someMotor.setPower(f*.76);
+        dataLog();
+        delay(50);
+    }
+
+    while(1);
+}
+
+void dataLog()
+{
+    int32_t enc = someMotor.getCurrentPosition();
+    delay(50);
+    int32_t enc2 = someMotor.getCurrentPosition();
+
+    int32_t denc = enc2-enc;
+
+    int32_t cps = denc * (1000 / 50);
+
+    int32_t cpm = cps * 60;
+
+    int32_t rpm = cpm / 538;
+
+    Serial.print(-400);  // To freeze the lower limit
+    Serial.print(" ");
+    Serial.print(400);  // To freeze the upper limit
+    Serial.print(" ");
+    Serial.println(rpm);
 }
 
 float scale(float n, float x1, float x2, float y1, float y2) {

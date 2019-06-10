@@ -49,18 +49,18 @@ void HiTechnicDcMotorController::setMotorPower(MotorPort port, float power)
     
     if(!(int)port) //Port 1
     {
-        if((power == 0) && !m1Brake) //do we need to float?
+        if((scaledPower == 0) && !m1Brake) //do we need to float?
         {
-           power = MOTOR_POWER_FLOAT;
+           scaledPower = MOTOR_POWER_FLOAT;
         }
         
         write8(REGISTER_MOTOR_1_POWER, scaledPower);
     }
     else //Port 2
     {
-        if((power == 0) && !m2Brake) //do we need to float?
+        if((scaledPower == 0) && !m2Brake) //do we need to float?
         {
-           power = MOTOR_POWER_FLOAT;
+           scaledPower = MOTOR_POWER_FLOAT;
         }
         
         write8(REGISTER_MOTOR_2_POWER, scaledPower);
@@ -117,7 +117,7 @@ void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
 {
     if(!(int)port) //Port 1
     {
-        m1Mode ^= MOTOR_MODE_MASK_SELECTION; //use an XOR to clear the bits
+        m1Mode &= ~MOTOR_MODE_MASK_SELECTION; //use an AND with an inverted mask to clear the bits
         m1Mode |= (uint8_t)mode; //Now set the bits for the mode the user actually wants
         
         write8(REGISTER_MOTOR_1_MODE, m1Mode);
@@ -131,7 +131,7 @@ void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
     }
     else //Port 2
     {
-        m2Mode ^= MOTOR_MODE_MASK_SELECTION; //use an XOR to clear the bits
+        m2Mode &= ~MOTOR_MODE_MASK_SELECTION; //use an AND with an inverted mask to clear the bits
         m2Mode |= (uint8_t)mode; //Now set the bits for the mode the user actually wants
         
         write8(REGISTER_MOTOR_2_MODE, m2Mode);
@@ -177,8 +177,8 @@ void HiTechnicDcMotorController::setTimeoutEnabled(bool enableTimeout)
     }
     else
     {
-        m1Mode ^= NTO_BIT;
-        m2Mode ^= NTO_BIT;
+        m1Mode &= ~NTO_BIT;
+        m2Mode &= ~NTO_BIT;
     }
 
     /*
