@@ -33,15 +33,15 @@ class HiTechnicServoController : public HiTechnicController
         void setServoPosition(ServoPort port, float pos);
         void enablePwm(bool noTimeout);
         void disablePwm();
-        void setStepTime(uint8_t t);
+        void setStepTime(int8_t t);
         float getServoPosition(ServoPort port);
 
     private:
         uint8_t commandedPositions[6] = {0,0,0,0,0,0};
 
         static const uint8_t REGISTER_SERVO_1_POS = 0x42; //servo 6 reg -> 0x47
-        static const float API_SERVO_POS_MIN = 0;
-        static const float API_SERVO_POS_MAX = 1;
+        static constexpr float API_SERVO_POS_MIN = 0;
+        static constexpr float API_SERVO_POS_MAX = 1;
         static const uint8_t REGISTER_ENABLE_PWM = 0x48;
         static const uint8_t REGISTER_STEP_TIME = 0x41;
         static const uint8_t PWM_DISABLED = 255;

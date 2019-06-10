@@ -19,6 +19,7 @@
  * SOFTWARE.
  */
 
+#include <stdint.h>
 #include "Arduino.h"
 #include "HiTechnicController.h"
 #include "Wire.h"
@@ -102,7 +103,7 @@ uint8_t HiTechnicController::read8(uint8_t reg)
     Wire.write(reg);
     Wire.endTransmission();
 
-    Wire.requestFrom(i2cAddr, 1);
+    Wire.requestFrom(i2cAddr, (uint8_t)1);
     return Wire.read();
 }
 
@@ -145,11 +146,17 @@ uint32_t HiTechnicController::read32(uint8_t reg)
 uint32_t HiTechnicController::byteArrayToInt32(uint8_t* bytes)
 {
     uint32_t i = 0;
+
+    /*
+     * Apparently, doing a shift greater than the width
+     * of a uint8_t does not implicitly cast to a wider
+     * type, so we need to manually cast it.
+     */
     
-    i |= bytes[0] << 24;
-    i |= bytes[1] << 16;
-    i |= bytes[2] << 8;
-    i |= bytes[3];
+    i |= (uint32_t) bytes[0] << 24;
+    i |= (uint32_t) bytes[1] << 16;
+    i |= (uint32_t) bytes[2] << 8;
+    i |= (uint32_t) bytes[3];
 
     return i;
 }

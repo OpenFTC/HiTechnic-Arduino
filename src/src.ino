@@ -50,7 +50,7 @@ void setup()
     someMotor.setRunMode(HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
     someMotor.setRunMode(HiTechnicDcMotorController::RunMode::RUN_WITHOUT_ENCODER);
     someMotor.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::BRAKE);
-    someMotor.setDirection(HiTechnicMotor::Direction::REVERSE);
+    someMotor.setDirection(HiTechnicMotor::Direction::FORWARD);
     someMotor.setPower(0);
     someMotor.setTargetPosition(4634);
     someMotor.getController()->setTimeoutEnabled(false);
@@ -58,14 +58,9 @@ void setup()
 
 void loop()
 {
- 
-    char mfr[HiTechnicController::NUM_MFR_CHARS];
-    mc1.getManufacturer(mfr);
-    Serial.println(mfr);
-
-    char type[HiTechnicController::NUM_SENSOR_TYPE_CHARS];
-    mc1.getSensorType(type);
-    Serial.println(type);
+    someMotor.setPower(scale(analogRead(A0), 0, 1023, -1, 1));
+    int32_t enc = someMotor.getCurrentPosition();
+    Serial.println(enc);
 
     delay(250);
 }

@@ -103,7 +103,7 @@ void HiTechnicServoController::disablePwm()
 /*
  * Sets the step time
  */
-void HiTechnicServoController::setStepTime(uint8_t t)
+void HiTechnicServoController::setStepTime(int8_t t)
 {
     clipSigned8(&t, 0, 15);
 
