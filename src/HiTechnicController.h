@@ -27,15 +27,16 @@
 class HiTechnicController
 {
     public:
-        enum DaisyChainPosition {DAISY_CHAIN_POSITION_FIRST = 0x01, DAISY_CHAIN_POSITION_SECOND, DAISY_CHAIN_POSITION_THIRD, DAISY_CHAIN_POSITION_FOURTH, DAISY_CHAIN_POSITION_NONE};
+        enum DaisyChainPosition {DAISY_CHAIN_POSITION_FIRST = 0x01, DAISY_CHAIN_POSITION_SECOND = 0x02, DAISY_CHAIN_POSITION_THIRD = 0x03, DAISY_CHAIN_POSITION_FOURTH = 0x04, DAISY_CHAIN_POSITION_NONE = 0x05};
+        
         HiTechnicController(DaisyChainPosition pos);
         void getManufacturer(uint8_t* out);
         void getSensorType(uint8_t* out);
 
     protected:
         void write8(uint8_t reg, uint8_t val);
-        void write32(uint8_t reg, uint32_t data);
         void writeMultiple(uint8_t reg, uint8_t data[], uint8_t len);
+        void write32(uint8_t reg, uint32_t data);
         uint8_t read8(uint8_t reg);
         void readMultiple(uint8_t reg, uint8_t num, uint8_t* out);
         uint32_t read32(uint8_t reg);

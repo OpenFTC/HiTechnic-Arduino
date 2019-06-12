@@ -27,31 +27,27 @@
 class HiTechnicDcMotorController : public HiTechnicController
 {
     public:
-        HiTechnicDcMotorController(DaisyChainPosition pos);
         enum class RunMode {RUN_WITHOUT_ENCODER = 0x00, RUN_USING_ENCODER = 0x01, RUN_TO_POSITION = 0x02, STOP_AND_RESET_ENCODER = 0x03};
-        enum class ZeroPowerBehavior {FLOAT = 0, BRAKE};
-        enum class MotorPort {MOTOR_PORT_1 = 0, MOTOR_PORT_2};
+        enum class ZeroPowerBehavior {FLOAT = 0, BRAKE = 1};
+        enum class MotorPort {MOTOR_PORT_1 = 0, MOTOR_PORT_2 = 1};
+
+        HiTechnicDcMotorController(DaisyChainPosition pos);
         void setMotorPower(MotorPort port, float power);
         float getMotorPower(MotorPort port);
-        void setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD);
-        void getMotorPIDCoeffs(MotorPort port, uint8_t* out);
+        int32_t getMotorCurrentPosition(MotorPort port);
         void setMotorRunMode(MotorPort port, RunMode mode);
         void setMotorZeroPowerBehavior(MotorPort port, ZeroPowerBehavior b);
-        int32_t getMotorCurrentPosition(MotorPort port);
+        void setTimeoutEnabled(bool timeoutEnabled);
         void setMotorTargetPosition(MotorPort port, int32_t tPos);
         int32_t getMotorTargetPosition(MotorPort port);
         bool isMotorBusy(MotorPort port);
+        void setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD);
+        void getMotorPIDCoeffs(MotorPort port, uint8_t* out);
         uint16_t getBatteryVoltageMillivolts();
         float getBatteryVoltage();
-        void setTimeoutEnabled(bool timeoutEnabled);
+        
 
     private:
-        bool m1Brake = false;
-        bool m2Brake = false;
-
-        uint8_t m1Mode = 0x00;
-        uint8_t m2Mode = 0x00;
-
         static const uint8_t REGISTER_MOTOR_1_POWER = 0x45;
         static const uint8_t REGISTER_MOTOR_2_POWER = 0x46;
         static const uint8_t REGISTER_MOTOR_1_MODE = 0x44;
@@ -75,6 +71,11 @@ class HiTechnicDcMotorController : public HiTechnicController
         static const uint8_t REGISTER_MOTOR_2_P_COEFF = 0x5B;
         static const uint8_t REGISTER_MOTOR_2_I_COEFF = 0x5C;
         static const uint8_t REGISTER_MOTOR_2_D_COEFF = 0x5D;
+
+        bool m1Brake = false;
+        bool m2Brake = false;
+        uint8_t m1Mode = 0x00;
+        uint8_t m2Mode = 0x00;
 };
 
 #endif

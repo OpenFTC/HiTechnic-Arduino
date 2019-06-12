@@ -172,11 +172,13 @@ void HiTechnicDcMotorController::setTimeoutEnabled(bool enableTimeout)
   
     if(!enableTimeout)
     {
+        //Set the bits
         m1Mode |= NTO_BIT;
         m2Mode |= NTO_BIT;
     }
     else
     {
+        //Use an AND with an inverted mask to clear the bits
         m1Mode &= ~NTO_BIT;
         m2Mode &= ~NTO_BIT;
     }
@@ -255,14 +257,14 @@ bool HiTechnicDcMotorController::isMotorBusy(MotorPort port)
  */
 void HiTechnicDcMotorController::setMotorPIDCoeffs(MotorPort port, uint8_t kP, uint8_t kI, uint8_t kD)
 {
+    uint8_t pid[] = {kP, kI, kD};
+  
     if(!(int)port) //Port 1
     {
-        uint8_t pid[] = {kP, kI, kD};
         writeMultiple(REGISTER_MOTOR_1_P_COEFF, pid, 3);
     }
     else //Port 2
     {
-        uint8_t pid[] = {kP, kI, kD};
         writeMultiple(REGISTER_MOTOR_2_P_COEFF, pid, 3);
     }
 }

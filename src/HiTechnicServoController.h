@@ -28,17 +28,16 @@
 class HiTechnicServoController : public HiTechnicController
 {
     public:
+        enum ServoPort {SERVO_PORT_1 = 0, SERVO_PORT_2 = 1, SERVO_PORT_3 = 2, SERVO_PORT_4 = 3, SERVO_PORT_5 = 4, SERVO_PORT_6 = 5};
+        
         HiTechnicServoController(DaisyChainPosition pos);
-        enum ServoPort {SERVO_PORT_1 = 0, SERVO_PORT_2, SERVO_PORT_3, SERVO_PORT_4, SERVO_PORT_5, SERVO_PORT_6};
         void setServoPosition(ServoPort port, float pos);
+        float getServoPosition(ServoPort port);
         void enablePwm(bool noTimeout);
         void disablePwm();
         void setStepTime(int8_t t);
-        float getServoPosition(ServoPort port);
 
     private:
-        uint8_t commandedPositions[6] = {0,0,0,0,0,0};
-
         static const uint8_t REGISTER_SERVO_1_POS = 0x42; //servo 6 reg -> 0x47
         static constexpr float API_SERVO_POS_MIN = 0;
         static constexpr float API_SERVO_POS_MAX = 1;
@@ -47,6 +46,8 @@ class HiTechnicServoController : public HiTechnicController
         static const uint8_t PWM_DISABLED = 255;
         static const uint8_t PWM_ENABLED = 0;
         static const uint8_t PWM_ENABLED_NTO = 0xAA;
+
+        uint8_t commandedPositions[6] = {0,0,0,0,0,0};
 };
 
 #endif

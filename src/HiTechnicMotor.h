@@ -28,24 +28,25 @@
 class HiTechnicMotor
 {
     public:
+        enum class Direction {FORWARD = 0, REVERSE = 1};
+        
         HiTechnicMotor(HiTechnicDcMotorController* controller, HiTechnicDcMotorController::MotorPort port);
-        enum class Direction {FORWARD = 0, REVERSE};
         void setPower(float power);
         float getPower();
-        void setPIDCoeffs(uint8_t kP, uint8_t kI, uint8_t kD);
-        void getPIDCoeffs(uint8_t* out);
+        int32_t getCurrentPosition();
         void setRunMode(HiTechnicDcMotorController::RunMode mode);
+        void setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b);
+        void setDirection(Direction dir);
         void setTargetPosition(int32_t tPos);
         int32_t getTargetPosition();
         bool isBusy();
-        int32_t getCurrentPosition();
-        void setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b);
-        void setDirection(Direction dir);
+        void setPIDCoeffs(uint8_t kP, uint8_t kI, uint8_t kD);
+        void getPIDCoeffs(uint8_t* out);
         HiTechnicDcMotorController* getController();
 
     private:
-        HiTechnicDcMotorController::MotorPort port;
         HiTechnicDcMotorController* controller;
+        HiTechnicDcMotorController::MotorPort port;
         bool rev = false;
 };
 

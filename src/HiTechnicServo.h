@@ -29,9 +29,9 @@ class HiTechnicServo
 {
     public:
         HiTechnicServo(HiTechnicServoController* controller, HiTechnicServoController::ServoPort port);
-        HiTechnicServoController* getController();
         void setPosition(float pos);
         float getPosition();
+        HiTechnicServoController* getController();
 
     private:
         HiTechnicServoController* controller;
