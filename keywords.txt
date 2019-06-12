@@ -1,0 +1,95 @@
+##################################################################
+# Arduino syntax highlighting is the most stupid thing I've ever #
+# seen - you have to manually tell the IDE what to highlight!    #
+##################################################################
+
+# HiTechnicController
+
+HiTechnicController	KEYWORD1
+DaisyChainPosition	KEYWORD1
+DAISY_CHAIN_POSITION_FIRST	LITERAL1
+DAISY_CHAIN_POSITION_SECOND	LITERAL1
+DAISY_CHAIN_POSITION_THIRD	LITERAL1
+DAISY_CHAIN_POSITION_FOURTH	LITERAL1
+DAISY_CHAIN_POSITION_NONE	LITERAL1
+getManufacturer	KEYWORD2
+getSensorType	KEYWORD2
+NUM_SENSOR_TYPE_CHARS	LITERAL1
+NUM_MFR_CHARS	LITERAL1
+
+#------------------------------------------------------
+
+# HiTechnicDcMotorController
+
+HiTechnicDcMotorController	KEYWORD1
+RunMode	KEYWORD1
+RUN_WITHOUT_ENCODER	LITERAL1
+RUN_USING_ENCODER	LITERAL1
+RUN_TO_POSITION	LITERAL1
+STOP_AND_RESET_ENCODER	LITERAL1
+ZeroPowerBehavior	KEYWORD1
+FLOAT	LITERAL1
+BRAKE	LITERAL1
+MotorPort	KEYWORD1
+MOTOR_PORT_1	LITERAL1
+MOTOR_PORT_2	LITERAL1
+setMotorPower	KEYWORD2
+getMotorPower	KEYWORD2
+getMotorCurrentPosition	KEYWORD2
+setMotorRunMode	KEYWORD2
+setMotorZeroPowerBehavior	KEYWORD2
+setTimeoutEnabled	KEYWORD2
+setMotorTargetPosition	KEYWORD2
+getMotorTargetPosition	KEYWORD2
+isMotorBusy	KEYWORD2
+setMotorPIDCoeffs	KEYWORD2
+getMotorPIDCoeffs	KEYWORD2
+getBatteryVoltageMillivolts	KEYWORD2
+getBatteryVoltage	KEYWORD2
+
+#-----------------------------------------------------
+
+# HiTechnicMotor
+
+HiTechnicMotor	KEYWORD1
+Direction	KEYWORD1
+FORWARD	LITERAL1
+REVERSE	LITERAL1
+setPower	KEYWORD2
+getPower	KEYWORD2
+getCurrentPosition	KEYWORD2
+setRunMode	KEYWORD2
+setZeroPowerBehavior	KEYWORD2
+setDirection	KEYWORD2
+setTargetPosition	KEYWORD2
+getTargetPosition	KEYWORD2
+isBusy	KEYWORD2
+setPIDCoeffs	KEYWORD2
+getPIDCoeffs	KEYWORD2
+getController	KEYWORD2
+
+#-----------------------------------------------------
+
+# HiTechnicServoController
+
+HiTechnicServoController	KEYWORD1
+SERVO_PORT_1	LITERAL1
+SERVO_PORT_2	LITERAL1
+SERVO_PORT_3	LITERAL1
+SERVO_PORT_4	LITERAL1
+SERVO_PORT_5	LITERAL1
+SERVO_PORT_6	LITERAL1
+setServoPosition	KEYWORD2
+getServoPosition	KEYWORD2
+enablePwm	KEYWORD2
+disablePwm	KEYWORD2
+setStepTime	KEYWORD2
+
+#-----------------------------------------------------
+
+# HiTechnicServo
+
+HiTechnicServo	KEYWORD1
+setPosition	KEYWORD2
+getPosition	KEYWORD2
+getController	KEYWORD2
