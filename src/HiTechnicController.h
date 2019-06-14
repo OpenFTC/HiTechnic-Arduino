@@ -27,7 +27,7 @@
 class HiTechnicController
 {
     public:
-        enum DaisyChainPosition {DAISY_CHAIN_POSITION_FIRST = 0x01, DAISY_CHAIN_POSITION_SECOND = 0x02, DAISY_CHAIN_POSITION_THIRD = 0x03, DAISY_CHAIN_POSITION_FOURTH = 0x04, DAISY_CHAIN_POSITION_NONE = 0x05};
+        enum class DaisyChainPosition {FIRST = 0x01, SECOND = 0x02, THIRD = 0x03, FOURTH = 0x04, NONE = 0x05};
         
         HiTechnicController(DaisyChainPosition pos);
         void getManufacturer(uint8_t* out);

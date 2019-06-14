@@ -29,7 +29,7 @@ class HiTechnicDcMotorController : public HiTechnicController
     public:
         enum class RunMode {RUN_WITHOUT_ENCODER = 0x00, RUN_USING_ENCODER = 0x01, RUN_TO_POSITION = 0x02, STOP_AND_RESET_ENCODER = 0x03};
         enum class ZeroPowerBehavior {FLOAT = 0, BRAKE = 1};
-        enum class MotorPort {MOTOR_PORT_1 = 0, MOTOR_PORT_2 = 1};
+        enum class MotorPort {PORT_1 = 0, PORT_2 = 1};
 
         HiTechnicDcMotorController(DaisyChainPosition pos);
         void setMotorPower(MotorPort port, float power);

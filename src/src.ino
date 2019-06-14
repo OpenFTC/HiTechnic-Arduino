@@ -29,12 +29,12 @@
 #define PRESCALAR 4
 #define TWI_FREQ 37390L
 
-HiTechnicDcMotorController mc1(HiTechnicController::DAISY_CHAIN_POSITION_SECOND);
-HiTechnicMotor someMotor(&mc1, HiTechnicDcMotorController::MotorPort::MOTOR_PORT_1);
-HiTechnicMotor someMotor2(&mc1, HiTechnicDcMotorController::MotorPort::MOTOR_PORT_2);
+HiTechnicDcMotorController mc1(HiTechnicController::DaisyChainPosition::SECOND);
+HiTechnicMotor someMotor(&mc1, HiTechnicDcMotorController::MotorPort::PORT_1);
+HiTechnicMotor someMotor2(&mc1, HiTechnicDcMotorController::MotorPort::PORT_2);
 
-HiTechnicServoController sc1(HiTechnicController::DAISY_CHAIN_POSITION_FIRST);
-HiTechnicServo someServo(&sc1, HiTechnicServoController::SERVO_PORT_2);
+HiTechnicServoController sc1(HiTechnicController::DaisyChainPosition::FIRST);
+HiTechnicServo someServo(&sc1, HiTechnicServoController::ServoPort::PORT_2);
 
 void setup()
 {

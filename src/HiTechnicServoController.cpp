@@ -50,7 +50,7 @@ void HiTechnicServoController::setServoPosition(ServoPort port, float pos)
     //Rather than a switch statement, just offset from the base mem addr
     write8(REGISTER_SERVO_1_POS + (int)port, scaledPos);
 
-    commandedPositions[port] = scaledPos;
+    commandedPositions[(int)port] = scaledPos;
 }
 
 /*
@@ -65,7 +65,7 @@ float HiTechnicServoController::getServoPosition(ServoPort port)
      * Convert from integer 0 to 255 
      * to floating point 0 to 1
      */
-    return commandedPositions[port] / 255.0;
+    return commandedPositions[(int)port] / 255.0;
 }
 
 //--------------------------------------------------------------------------------

@@ -28,7 +28,7 @@
 class HiTechnicServoController : public HiTechnicController
 {
     public:
-        enum ServoPort {SERVO_PORT_1 = 0, SERVO_PORT_2 = 1, SERVO_PORT_3 = 2, SERVO_PORT_4 = 3, SERVO_PORT_5 = 4, SERVO_PORT_6 = 5};
+        enum class ServoPort {PORT_1 = 0, PORT_2 = 1, PORT_3 = 2, PORT_4 = 3, PORT_5 = 4, PORT_6 = 5};
         
         HiTechnicServoController(DaisyChainPosition pos);
         void setServoPosition(ServoPort port, float pos);
