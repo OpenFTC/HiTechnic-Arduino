@@ -45,6 +45,11 @@ class HiTechnicDcMotorController : public HiTechnicController
         void getMotorPIDCoeffs(MotorPort port, uint8_t* out);
         uint16_t getBatteryVoltageMillivolts();
         float getBatteryVoltage();
+        void reset();
+
+        static const uint8_t DEFAULT_P_COEFF = 128;
+        static const uint8_t DEFAULT_I_COEFF = 64;
+        static const uint8_t DEFAULT_D_COEFF = 184;
         
 
     private:

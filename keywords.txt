@@ -46,6 +46,10 @@ setMotorPIDCoeffs	KEYWORD2
 getMotorPIDCoeffs	KEYWORD2
 getBatteryVoltageMillivolts	KEYWORD2
 getBatteryVoltage	KEYWORD2
+reset	KEYWORD2
+DEFAULT_P_COEFF	LITERAL1
+DEFAULT_I_COEFF	LITERAL1
+DEFAULT_D_COEFF	LITERAL1
 
 #-----------------------------------------------------
 

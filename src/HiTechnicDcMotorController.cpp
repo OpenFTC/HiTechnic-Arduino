@@ -191,6 +191,28 @@ void HiTechnicDcMotorController::setTimeoutEnabled(bool enableTimeout)
     write8(REGISTER_MOTOR_2_MODE, m2Mode);
 }
 
+/*
+ * Reset the controller to a fresh power-up state,
+ * except for the encoders which are not reset in
+ * order to mirror the behavior of the SDK
+ */
+void HiTechnicDcMotorController::reset()
+{
+    setTimeoutEnabled(true);
+
+    setMotorPower(MotorPort::PORT_1, 0);
+    setMotorPower(MotorPort::PORT_2, 0);
+    
+    setMotorRunMode(MotorPort::PORT_1, RunMode::RUN_WITHOUT_ENCODER);
+    setMotorRunMode(MotorPort::PORT_2, RunMode::RUN_WITHOUT_ENCODER);
+    
+    setMotorPIDCoeffs(MotorPort::PORT_1, DEFAULT_P_COEFF, DEFAULT_I_COEFF, DEFAULT_D_COEFF);
+    setMotorPIDCoeffs(MotorPort::PORT_2, DEFAULT_P_COEFF, DEFAULT_I_COEFF, DEFAULT_D_COEFF);
+
+    setMotorTargetPosition(MotorPort::PORT_1, 0);
+    setMotorTargetPosition(MotorPort::PORT_2, 0);
+}
+
 //--------------------------------------------------------------------------------
 // Functions related to RTP mode
 //--------------------------------------------------------------------------------
