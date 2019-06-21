@@ -146,6 +146,27 @@ void HiTechnicDcMotorController::setMotorMode(MotorPort port, RunMode mode)
 }
 
 /*
+ * Get the current run mode of a motor
+ */
+HiTechnicDcMotorController::RunMode HiTechnicDcMotorController::getMotorMode(MotorPort port)
+{
+    uint8_t rawMode;
+  
+    if(!(int)port) //Port 1
+    {
+        rawMode = read8(REGISTER_MOTOR_1_MODE);
+    }
+    else //Port 2
+    {
+        rawMode = read8(REGISTER_MOTOR_2_MODE);
+    }
+
+    rawMode &= MOTOR_MODE_MASK_SELECTION; //Clear the bits we don't care about
+
+    return (RunMode)rawMode;
+}
+
+/*
  * Set the zero power behavior for a motor
  */
 void HiTechnicDcMotorController::setMotorZeroPowerBehavior(MotorPort port, ZeroPowerBehavior b)

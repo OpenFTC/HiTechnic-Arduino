@@ -36,7 +36,8 @@ PORT_2	LITERAL1
 setMotorPower	KEYWORD2
 getMotorPower	KEYWORD2
 getMotorCurrentPosition	KEYWORD2
-setMotorRunMode	KEYWORD2
+setMotorMode	KEYWORD2
+getMotorMode	KEYWORD2
 setMotorZeroPowerBehavior	KEYWORD2
 setTimeoutEnabled	KEYWORD2
 setMotorTargetPosition	KEYWORD2
@@ -62,7 +63,8 @@ REVERSE	LITERAL1
 setPower	KEYWORD2
 getPower	KEYWORD2
 getCurrentPosition	KEYWORD2
-setRunMode	KEYWORD2
+setMode	KEYWORD2
+getMode	KEYWORD2
 setZeroPowerBehavior	KEYWORD2
 setDirection	KEYWORD2
 setTargetPosition	KEYWORD2

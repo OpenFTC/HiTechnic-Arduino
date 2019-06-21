@@ -101,6 +101,14 @@ void HiTechnicMotor::setMode(HiTechnicDcMotorController::RunMode mode)
 }
 
 /*
+ * Get the current run mode of this motor
+ */
+HiTechnicDcMotorController::RunMode HiTechnicMotor::getMode()
+{
+    return controller->getMotorMode(port);
+}
+
+/*
  * Set the zero power behavior of this motor
  */
 void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b)

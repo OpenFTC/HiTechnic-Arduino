@@ -36,6 +36,7 @@ class HiTechnicDcMotorController : public HiTechnicController
         float getMotorPower(MotorPort port);
         int32_t getMotorCurrentPosition(MotorPort port);
         void setMotorMode(MotorPort port, RunMode mode);
+        RunMode getMotorMode(MotorPort port);
         void setMotorZeroPowerBehavior(MotorPort port, ZeroPowerBehavior b);
         void setTimeoutEnabled(bool timeoutEnabled);
         void setMotorTargetPosition(MotorPort port, int32_t tPos);
