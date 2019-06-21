@@ -95,9 +95,9 @@ int32_t HiTechnicMotor::getCurrentPosition()
 /*
  * Set the run mode of this motor
  */
-void HiTechnicMotor::setRunMode(HiTechnicDcMotorController::RunMode mode)
+void HiTechnicMotor::setMode(HiTechnicDcMotorController::RunMode mode)
 {
-    controller->setMotorRunMode(port, mode);
+    controller->setMotorMode(port, mode);
 }
 
 /*

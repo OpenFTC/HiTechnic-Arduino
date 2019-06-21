@@ -113,7 +113,7 @@ int32_t HiTechnicDcMotorController::getMotorCurrentPosition(MotorPort port)
 /*
  * Set the run mode for a motor
  */
-void HiTechnicDcMotorController::setMotorRunMode(MotorPort port, RunMode mode)
+void HiTechnicDcMotorController::setMotorMode(MotorPort port, RunMode mode)
 {
     if(!(int)port) //Port 1
     {
@@ -203,8 +203,8 @@ void HiTechnicDcMotorController::reset()
     setMotorPower(MotorPort::PORT_1, 0);
     setMotorPower(MotorPort::PORT_2, 0);
     
-    setMotorRunMode(MotorPort::PORT_1, RunMode::RUN_WITHOUT_ENCODER);
-    setMotorRunMode(MotorPort::PORT_2, RunMode::RUN_WITHOUT_ENCODER);
+    setMotorMode(MotorPort::PORT_1, RunMode::RUN_WITHOUT_ENCODER);
+    setMotorMode(MotorPort::PORT_2, RunMode::RUN_WITHOUT_ENCODER);
     
     setMotorPIDCoeffs(MotorPort::PORT_1, DEFAULT_P_COEFF, DEFAULT_I_COEFF, DEFAULT_D_COEFF);
     setMotorPIDCoeffs(MotorPort::PORT_2, DEFAULT_P_COEFF, DEFAULT_I_COEFF, DEFAULT_D_COEFF);
