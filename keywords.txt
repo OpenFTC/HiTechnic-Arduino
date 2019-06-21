@@ -69,6 +69,7 @@ getMode	KEYWORD2
 setZeroPowerBehavior	KEYWORD2
 getZeroPowerBehavior	KEYWORD2
 setDirection	KEYWORD2
+getDirection	KEYWORD2
 setTargetPosition	KEYWORD2
 getTargetPosition	KEYWORD2
 isBusy	KEYWORD2

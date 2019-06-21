@@ -117,7 +117,7 @@ void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerB
 }
 
 /*
- * Get the zero power behavior of this motor
+ * Get the current zero power behavior of this motor
  */
 HiTechnicDcMotorController::ZeroPowerBehavior HiTechnicMotor::getZeroPowerBehavior()
 {
@@ -142,6 +142,18 @@ void HiTechnicMotor::setDirection(Direction dir)
     {
         rev = false;
     }
+}
+
+/*
+ * Get the current direction of this motor
+ */
+HiTechnicMotor::Direction HiTechnicMotor::getDirection()
+{
+    /*
+     * NB: We handle the direction in software,
+     * just like the SDK does
+     */
+    return (Direction)rev;
 }
 
 //--------------------------------------------------------------------------------

@@ -182,7 +182,7 @@ void HiTechnicDcMotorController::setMotorZeroPowerBehavior(MotorPort port, ZeroP
 }
 
 /*
- * Get the zero power behavior of a motor
+ * Get the current zero power behavior of a motor
  */
 HiTechnicDcMotorController::ZeroPowerBehavior HiTechnicDcMotorController::getMotorZeroPowerBehavior(MotorPort port)
 {    

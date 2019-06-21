@@ -39,6 +39,7 @@ class HiTechnicMotor
         void setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b);
         HiTechnicDcMotorController::ZeroPowerBehavior getZeroPowerBehavior();
         void setDirection(Direction dir);
+        Direction getDirection();
         void setTargetPosition(int32_t tPos);
         int32_t getTargetPosition();
         bool isBusy();
