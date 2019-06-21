@@ -182,6 +182,21 @@ void HiTechnicDcMotorController::setMotorZeroPowerBehavior(MotorPort port, ZeroP
 }
 
 /*
+ * Get the zero power behavior of a motor
+ */
+HiTechnicDcMotorController::ZeroPowerBehavior HiTechnicDcMotorController::getMotorZeroPowerBehavior(MotorPort port)
+{    
+    if(!(int)port) //Port 1
+    {
+        return (ZeroPowerBehavior)m1Brake;
+    }
+    else //Port 2
+    {
+        return (ZeroPowerBehavior)m2Brake;
+    }
+}
+
+/*
  * Set whether the controller's internal 2500ms no-comms timeout should be activated
  */
 void HiTechnicDcMotorController::setTimeoutEnabled(bool enableTimeout)

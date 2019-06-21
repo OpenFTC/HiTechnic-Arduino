@@ -37,6 +37,7 @@ class HiTechnicMotor
         void setMode(HiTechnicDcMotorController::RunMode mode);
         HiTechnicDcMotorController::RunMode getMode();
         void setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior b);
+        HiTechnicDcMotorController::ZeroPowerBehavior getZeroPowerBehavior();
         void setDirection(Direction dir);
         void setTargetPosition(int32_t tPos);
         int32_t getTargetPosition();

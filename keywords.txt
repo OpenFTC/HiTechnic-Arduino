@@ -39,6 +39,7 @@ getMotorCurrentPosition	KEYWORD2
 setMotorMode	KEYWORD2
 getMotorMode	KEYWORD2
 setMotorZeroPowerBehavior	KEYWORD2
+getMotorZeroPowerBehavior	KEYWORD2
 setTimeoutEnabled	KEYWORD2
 setMotorTargetPosition	KEYWORD2
 getMotorTargetPosition	KEYWORD2
@@ -66,6 +67,7 @@ getCurrentPosition	KEYWORD2
 setMode	KEYWORD2
 getMode	KEYWORD2
 setZeroPowerBehavior	KEYWORD2
+getZeroPowerBehavior	KEYWORD2
 setDirection	KEYWORD2
 setTargetPosition	KEYWORD2
 getTargetPosition	KEYWORD2

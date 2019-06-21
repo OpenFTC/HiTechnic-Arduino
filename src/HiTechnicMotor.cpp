@@ -117,6 +117,14 @@ void HiTechnicMotor::setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerB
 }
 
 /*
+ * Get the zero power behavior of this motor
+ */
+HiTechnicDcMotorController::ZeroPowerBehavior HiTechnicMotor::getZeroPowerBehavior()
+{
+    return controller->getMotorZeroPowerBehavior(port);
+}
+
+/*
  * Set the direction of this motor
  */
 void HiTechnicMotor::setDirection(Direction dir)
