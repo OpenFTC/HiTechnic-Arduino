@@ -5,8 +5,21 @@
 #include "HiTechnicServo.h"
 #include "Wire.h"
 
+using DaisyChainPosition = HiTechnicController::DaisyChainPosition;
+using MotorPort = HiTechnicDcMotorController::MotorPort;
+using RunMode = HiTechnicDcMotorController::RunMode;
+using ZeroPowerBehavior = HiTechnicDcMotorController::ZeroPowerBehavior;
+using Direction = HiTechnicMotor::Direction;
+using ServoPort = HiTechnicServoController::ServoPort;
+
 #define PRESCALAR 4
 #define TWI_FREQ 37390L
+
+/*
+ * ================================================================
+ * Begin user code
+ * ================================================================
+ */
 
 void setup()
 {

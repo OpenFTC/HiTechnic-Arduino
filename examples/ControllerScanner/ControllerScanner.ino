@@ -19,15 +19,28 @@
  * SOFTWARE.
  */
 
-#include <HiTechnicServo.h>
-#include <HiTechnicDcMotorController.h>
-#include <HiTechnicController.h>
-#include <HiTechnicMotor.h>
-#include <HiTechnicServoController.h>
-#include <Wire.h>
+#include "HiTechnicController.h"
+#include "HiTechnicDcMotorController.h"
+#include "HiTechnicMotor.h"
+#include "HiTechnicServoController.h"
+#include "HiTechnicServo.h"
+#include "Wire.h"
+
+using DaisyChainPosition = HiTechnicController::DaisyChainPosition;
+using MotorPort = HiTechnicDcMotorController::MotorPort;
+using RunMode = HiTechnicDcMotorController::RunMode;
+using ZeroPowerBehavior = HiTechnicDcMotorController::ZeroPowerBehavior;
+using Direction = HiTechnicMotor::Direction;
+using ServoPort = HiTechnicServoController::ServoPort;
 
 #define PRESCALAR 4
 #define TWI_FREQ 37390L
+
+/*
+ * ================================================================
+ * Begin user code
+ * ================================================================
+ */
 
 boolean somethingFound = false;
 
@@ -45,17 +58,17 @@ void loop()
     Serial.println("Probing I2C bus for HiTechnic controllers...");
     somethingFound = false;
     
-    tryMotorController(HiTechnicController::DaisyChainPosition::FIRST);
-    tryMotorController(HiTechnicController::DaisyChainPosition::SECOND);
-    tryMotorController(HiTechnicController::DaisyChainPosition::THIRD);
-    tryMotorController(HiTechnicController::DaisyChainPosition::FOURTH);
-    tryMotorController(HiTechnicController::DaisyChainPosition::NONE);
+    tryMotorController(DaisyChainPosition::FIRST);
+    tryMotorController(DaisyChainPosition::SECOND);
+    tryMotorController(DaisyChainPosition::THIRD);
+    tryMotorController(DaisyChainPosition::FOURTH);
+    tryMotorController(DaisyChainPosition::NONE);
 
-    tryServoController(HiTechnicController::DaisyChainPosition::FIRST);
-    tryServoController(HiTechnicController::DaisyChainPosition::SECOND);
-    tryServoController(HiTechnicController::DaisyChainPosition::THIRD);
-    tryServoController(HiTechnicController::DaisyChainPosition::FOURTH);
-    tryServoController(HiTechnicController::DaisyChainPosition::NONE);
+    tryServoController(DaisyChainPosition::FIRST);
+    tryServoController(DaisyChainPosition::SECOND);
+    tryServoController(DaisyChainPosition::THIRD);
+    tryServoController(DaisyChainPosition::FOURTH);
+    tryServoController(DaisyChainPosition::NONE);
 
     if(!somethingFound)
     {
@@ -67,7 +80,7 @@ void loop()
     delay(5000);
 }
 
-void tryMotorController(HiTechnicController::DaisyChainPosition pos)
+void tryMotorController(DaisyChainPosition pos)
 {
     HiTechnicDcMotorController controller(pos);
 
@@ -80,7 +93,7 @@ void tryMotorController(HiTechnicController::DaisyChainPosition pos)
     {
         Serial.print("--> Motor controller at daisy chain address ");
 
-        if(pos == HiTechnicController::DaisyChainPosition::NONE)
+        if(pos == DaisyChainPosition::NONE)
         {
             Serial.println("NONE");
         }
@@ -93,7 +106,7 @@ void tryMotorController(HiTechnicController::DaisyChainPosition pos)
     }
 }
 
-void tryServoController(HiTechnicController::DaisyChainPosition pos)
+void tryServoController(DaisyChainPosition pos)
 {
     HiTechnicServoController controller(pos);
 
@@ -106,7 +119,7 @@ void tryServoController(HiTechnicController::DaisyChainPosition pos)
     {
         Serial.print("--> Servo controller at daisy chain address ");
         
-        if(pos == HiTechnicController::DaisyChainPosition::NONE)
+        if(pos == DaisyChainPosition::NONE)
         {
             Serial.println("NONE");
         }

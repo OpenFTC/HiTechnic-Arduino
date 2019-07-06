@@ -27,11 +27,24 @@
 #include "Wire.h"
 #include "RollingIntegerAverage.h"
 
+using DaisyChainPosition = HiTechnicController::DaisyChainPosition;
+using MotorPort = HiTechnicDcMotorController::MotorPort;
+using RunMode = HiTechnicDcMotorController::RunMode;
+using ZeroPowerBehavior = HiTechnicDcMotorController::ZeroPowerBehavior;
+using Direction = HiTechnicMotor::Direction;
+using ServoPort = HiTechnicServoController::ServoPort;
+
 #define PRESCALAR 4
 #define TWI_FREQ 37390L
 
-HiTechnicDcMotorController mc1(HiTechnicController::DaisyChainPosition::FIRST);
-HiTechnicMotor someMotor(&mc1, HiTechnicDcMotorController::MotorPort::PORT_1);
+/*
+ * ================================================================
+ * Begin user code
+ * ================================================================
+ */
+
+HiTechnicDcMotorController mc1(DaisyChainPosition::FIRST);
+HiTechnicMotor someMotor(&mc1, MotorPort::PORT_1);
 
 RollingIntegerAverage rollingAvg(5);
 
@@ -44,9 +57,9 @@ void setup()
     
     Wire.begin(); //join the i2c bus
 
-    someMotor.setRunMode(HiTechnicDcMotorController::RunMode::STOP_AND_RESET_ENCODER);
-    someMotor.setZeroPowerBehavior(HiTechnicDcMotorController::ZeroPowerBehavior::BRAKE);
-    someMotor.setDirection(HiTechnicMotor::Direction::REVERSE);
+    someMotor.setMode(RunMode::STOP_AND_RESET_ENCODER);
+    someMotor.setZeroPowerBehavior(ZeroPowerBehavior::BRAKE);
+    someMotor.setDirection(Direction::REVERSE);
     someMotor.setPower(0);
     someMotor.getController()->setTimeoutEnabled(true);
 
@@ -56,7 +69,7 @@ void setup()
 
 void loop()
 {
-    someMotor.setRunMode(HiTechnicDcMotorController::RunMode::RUN_WITHOUT_ENCODER);
+    someMotor.setMode(RunMode::RUN_WITHOUT_ENCODER);
     delay(500);
 
     Serial.println("Open loop");
@@ -75,7 +88,7 @@ void loop()
     rollingAvg.reset();
     logZero(50);
     delay(1000);
-    someMotor.setRunMode(HiTechnicDcMotorController::RunMode::RUN_USING_ENCODER);
+    someMotor.setMode(RunMode::RUN_USING_ENCODER);
 
     Serial.println("Closed loop");
   
